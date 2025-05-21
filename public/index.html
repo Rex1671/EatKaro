@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EatKaro - Food Delivery</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .auth-container {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .auth-card {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 1rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        .auth-input {
+            transition: all 0.3s ease;
+            border: 2px solid #e2e8f0;
+        }
+        .auth-input:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        .auth-button {
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .auth-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+        }
+        .error-message {
+            animation: shake 0.5s ease-in-out;
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        .role-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .role-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+        .role-card.selected {
+            border-color: #667eea;
+            background-color: rgba(102, 126, 234, 0.05);
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="auth-container flex items-center justify-center p-4">
+        <div class="auth-card w-full max-w-md p-8">
+       
+            <div class="text-center mb-8">
+                <img src="images/logo.png" alt="EatKaro Logo" class="w-20 h-20 mx-auto mb-4">
+                <h1 class="text-3xl font-bold text-gray-800">Welcome to EatKaro</h1>
+                <p class="text-gray-600 mt-2">Your favorite food delivery platform</p>
+            </div>
+
+         
+            <div id="role-selection" class="grid grid-cols-2 gap-4 mb-8">
+                <div onclick="showAuthForm('user')" class="role-card p-6 border-2 border-gray-200 rounded-lg text-center hover:border-indigo-500">
+                    <i class="fas fa-user text-4xl text-indigo-600 mb-4"></i>
+                    <h3 class="text-lg font-medium text-gray-900">I'm a Customer</h3>
+                    <p class="text-gray-500 text-sm mt-2">Order food from your favorite restaurants</p>
+                </div>
+                <div onclick="showAuthForm('seller')" class="role-card p-6 border-2 border-gray-200 rounded-lg text-center hover:border-indigo-500">
+                    <i class="fas fa-store text-4xl text-indigo-600 mb-4"></i>
+                    <h3 class="text-lg font-medium text-gray-900">I'm a Restaurant</h3>
+                    <p class="text-gray-500 text-sm mt-2">Manage your restaurant and orders</p>
+                </div>
+            </div>
+
+         
+            <div id="auth-forms" class="hidden">
+           
+                <form id="login-form" class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                        <input type="email" id="login-email" required
+                               class="auth-input w-full px-4 py-3 rounded-lg focus:outline-none"
+                               placeholder="Enter your email">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                        <input type="password" id="login-password" required
+                               class="auth-input w-full px-4 py-3 rounded-lg focus:outline-none"
+                               placeholder="Enter your password">
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <input type="checkbox" id="remember-me" class="h-4 w-4 text-indigo-600">
+                            <label for="remember-me" class="ml-2 text-sm text-gray-600">Remember me</label>
+                        </div>
+                        <button type="button" id="forgot-password" class="text-sm text-indigo-600 hover:text-indigo-500 focus:outline-none">
+                            Forgot password?
+                        </button>
+                    </div>
+                    <button type="submit" class="auth-button w-full py-3 px-4 text-white rounded-lg font-medium">
+                        Sign In
+                    </button>
+                </form>
+
+                <form id="signup-form" class="hidden space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                        <input type="text" id="signup-name" required
+                               class="auth-input w-full px-4 py-3 rounded-lg focus:outline-none"
+                               placeholder="Enter your full name">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                        <input type="email" id="signup-email" required
+                               class="auth-input w-full px-4 py-3 rounded-lg focus:outline-none"
+                               placeholder="Enter your email">
+                    </div>
+                    <div class="mb-4">
+                        <label for="signup-password" class="block text-sm font-medium text-gray-700">Password</label>
+                        <input type="password" id="signup-password" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="signup-confirm-password" class="block text-sm font-medium text-gray-700">Confirm Password</label>
+                        <input type="password" id="signup-confirm-password" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" required>
+                    </div>
+                    <div class="mb-4">
+                        <div class="flex items-start">
+                            <div class="flex items-center h-5">
+                                <input id="terms-checkbox" type="checkbox" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded" required>
+                            </div>
+                            <div class="ml-3 text-sm">
+                                <label for="terms-checkbox" class="font-medium text-gray-700">I agree to the <a href="terms.html" target="_blank" class="text-indigo-600 hover:text-indigo-500">Terms of Service</a> and <a href="privacy.html" target="_blank" class="text-indigo-600 hover:text-indigo-500">Privacy Policy</a></label>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        Sign Up
+                    </button>
+                </form>
+
+        
+                <div class="mt-8 text-center">
+                    <p class="text-gray-600">
+                        <span id="toggle-text">Don't have an account?</span>
+                        <a href="#" id="toggle-auth" class="text-indigo-600 hover:text-indigo-500 font-medium ml-1">
+                            Sign up
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <div id="loading-spinner" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center">
+        <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-600"></div>
+    </div>
+
+
+    <div id="error-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center">
+        <div class="bg-white rounded-lg p-6 max-w-sm w-full mx-4">
+            <div class="text-center">
+                <i class="fas fa-exclamation-circle text-red-500 text-4xl mb-4"></i>
+                <h3 class="text-lg font-medium text-gray-900 mb-2">Error</h3>
+                <p id="error-message" class="text-gray-600"></p>
+                <button onclick="hideErrorModal()" class="mt-4 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="success-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center">
+        <div class="bg-white rounded-lg p-6 max-w-sm w-full mx-4">
+            <div class="text-center">
+                <i class="fas fa-check-circle text-green-500 text-4xl mb-4"></i>
+                <h3 class="text-lg font-medium text-gray-900 mb-2">Success</h3>
+                <p id="success-message" class="text-gray-600"></p>
+                <button onclick="hideSuccessModal()" class="mt-4 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html> 
