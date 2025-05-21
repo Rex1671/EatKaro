@@ -686,16 +686,40 @@ function displayOrders(orders, containerId) {
         return;
     }
 
-    container.innerHTML = orders.map(order => `
+   
+    if (containerId === 'completed-orders') {
+        // container.innerHTML = `
+        //     <div class="flex justify-end mb-4">
+        //         <button onclick="downloadOrderHistoryPDF()" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 flex items-center space-x-2">
+        //             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        //                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+        //             </svg>
+        //             <span>Download All Orders</span>
+        //         </button>
+        //     </div>
+        // `;
+    }
+
+    container.innerHTML += orders.map(order => `
         <div class="bg-white rounded-lg shadow-md p-6 mb-4">
             <div class="flex justify-between items-start mb-4">
                 <div>
                     <h3 class="text-lg font-medium text-gray-900">Order #${order.id}</h3>
                     <p class="text-sm text-gray-500">${new Date(order.createdAt).toLocaleString()}</p>
                 </div>
-                <span class="px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(order.status)}">
-                    ${order.status.replace(/_/g, ' ').toUpperCase()}
-                </span>
+                <div class="flex items-center space-x-2">
+                    ${order.status === 'completed' ? `
+                        <button onclick="downloadOrderBill('${order.id}')" class="px-3 py-1 bg-green-600 text-white rounded-md hover:bg-green-700 flex items-center space-x-1">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                            </svg>
+                            <span>Download Bill</span>
+                        </button>
+                    ` : ''}
+                    <span class="px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(order.status)}">
+                        ${order.status.replace(/_/g, ' ').toUpperCase()}
+                    </span>
+                </div>
             </div>
 
             <div class="space-y-4">
@@ -765,6 +789,149 @@ function displayOrders(orders, containerId) {
             </div>
         </div>
     `).join('');
+}
+
+async function downloadOrderHistoryPDF() {
+    log('Generating order history PDF', 'info');
+    showSpinner();
+    
+    try {
+        const snapshot = await database.ref('orders')
+            .orderByChild('userId')
+            .equalTo(currentUser.uid)
+            .once('value');
+        
+        const orders = [];
+        if (snapshot.exists()) {
+            snapshot.forEach(child => {
+                const order = child.val();
+                if (order.status === 'completed') {
+                    orders.push({ id: child.key, ...order });
+                }
+            });
+        }
+
+        if (orders.length === 0) {
+            alert('No completed orders found to generate PDF.');
+            hideSpinner();
+            return;
+        }
+
+        const container = document.createElement('div');
+        container.className = 'p-8 bg-white';
+        container.innerHTML = `
+            <div class="text-center mb-8">
+                <h1 class="text-3xl font-bold text-indigo-600 mb-2">EatKaro</h1>
+                <p class="text-gray-600">Order History Report</p>
+                <p class="text-sm text-gray-500">Generated on ${new Date().toLocaleString()}</p>
+            </div>
+            
+            <div class="mb-8">
+                <h2 class="text-xl font-semibold mb-4">Customer Information</h2>
+                <p class="text-gray-700">Name: ${userProfile?.fullName || 'N/A'}</p>
+                <p class="text-gray-700">Phone: ${userProfile?.phone || 'N/A'}</p>
+                <p class="text-gray-700">Address: ${userProfile?.address || 'N/A'}</p>
+            </div>
+
+            <div class="space-y-6">
+                ${orders.map(order => `
+                    <div class="border rounded-lg p-4 mb-4">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h3 class="text-lg font-medium">Order #${order.id}</h3>
+                                <p class="text-sm text-gray-500">${new Date(order.createdAt).toLocaleString()}</p>
+                            </div>
+                            <span class="px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
+                                COMPLETED
+                            </span>
+                        </div>
+
+                        <div class="space-y-4">
+                            <table class="w-full">
+                                <thead>
+                                    <tr class="bg-gray-50">
+                                        <th class="px-4 py-2 text-left">Item</th>
+                                        <th class="px-4 py-2 text-center">Quantity</th>
+                                        <th class="px-4 py-2 text-right">Price</th>
+                                        <th class="px-4 py-2 text-right">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${order.items?.map(item => `
+                                        <tr>
+                                            <td class="px-4 py-2">${item.name}</td>
+                                            <td class="px-4 py-2 text-center">${item.quantity}</td>
+                                            <td class="px-4 py-2 text-right">₹${item.price.toFixed(2)}</td>
+                                            <td class="px-4 py-2 text-right">₹${(item.price * item.quantity).toFixed(2)}</td>
+                                        </tr>
+                                    `).join('') || ''}
+                                </tbody>
+                                <tfoot>
+                                    <tr class="border-t">
+                                        <td colspan="3" class="px-4 py-2 text-right font-medium">Subtotal:</td>
+                                        <td class="px-4 py-2 text-right">₹${order.subtotal.toFixed(2)}</td>
+                                    </tr>
+                                    ${order.discount > 0 ? `
+                                        <tr>
+                                            <td colspan="3" class="px-4 py-2 text-right font-medium text-green-600">Discount:</td>
+                                            <td class="px-4 py-2 text-right text-green-600">-₹${order.discount.toFixed(2)}</td>
+                                        </tr>
+                                    ` : ''}
+                                    <tr class="border-t">
+                                        <td colspan="3" class="px-4 py-2 text-right font-bold">Total:</td>
+                                        <td class="px-4 py-2 text-right font-bold">₹${order.total.toFixed(2)}</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+
+                            ${order.reviewed ? `
+                                <div class="mt-4 p-4 bg-gray-50 rounded-lg">
+                                    <h4 class="font-medium mb-2">Your Review</h4>
+                                    <div class="flex items-center mb-2">
+                                        ${generateStarRating(order.rating)}
+                                        <span class="text-sm text-gray-500 ml-2">
+                                            ${new Date(order.reviewDate).toLocaleDateString()}
+                                        </span>
+                                    </div>
+                                    <p class="text-gray-600">${order.reviewComment}</p>
+                                    ${order.reviewReply ? `
+                                        <div class="mt-4 p-3 bg-white rounded border">
+                                            <h5 class="font-medium mb-2">Restaurant's Reply</h5>
+                                            <p class="text-gray-600">${order.reviewReply}</p>
+                                        </div>
+                                    ` : ''}
+                                </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+
+            <div class="mt-8 text-center text-gray-500 text-sm">
+                <p>Thank you for choosing EatKaro!</p>
+                <p>This is a computer-generated document and does not require a signature.</p>
+            </div>
+        `;
+
+
+        const opt = {
+            margin: 1,
+            filename: `eatkaro-order-history-${new Date().toISOString().split('T')[0]}.pdf`,
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+        };
+
+      
+        await html2pdf().set(opt).from(container).save();
+        
+        log('PDF generated successfully', 'success');
+    } catch (error) {
+        log('Error generating PDF', 'error', { error: error.message });
+        alert('Error generating PDF. Please try again.');
+    }
+    
+    hideSpinner();
 }
 
 function generateStarRating(rating) {
@@ -2227,21 +2394,21 @@ function createOrderCard(order) {
     return card;
 }
 
-document.body.insertAdjacentHTML('beforeend', `
-    <div id="chat-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Order Chat</h3>
-                <span class="close">&times;</span>
-            </div>
-            <div id="chat-messages" class="chat-messages"></div>
-            <div class="chat-input-container">
-                <input type="text" id="chat-input" placeholder="Type your message...">
-                <button id="send-message">Send</button>
-            </div>
-        </div>
-    </div>
-`);
+// document.body.insertAdjacentHTML('beforeend', `
+//     <div id="chat-modal" class="modal">
+//         <div class="modal-content">
+//             <div class="modal-header">
+//                 <h3>Order Chat</h3>
+//                 <span class="close">&times;</span>
+//             </div>
+//             <div id="chat-messages" class="chat-messages"></div>
+//             <div class="chat-input-container">
+//                 <input type="text" id="chat-input" placeholder="Type your message...">
+//                 <button id="send-message">Send</button>
+//             </div>
+//         </div>
+//     </div>
+// `);
 
 const style = document.createElement('style');
 style.textContent = `
@@ -2342,5 +2509,158 @@ async function handleSignOut() {
         log('Error signing out', 'error', { error: error.message });
         alert('Error signing out. Please try again.');
     }
+    hideSpinner();
+}
+
+async function downloadOrderBill(orderId) {
+    log('Generating order bill PDF', 'info', { orderId });
+    showSpinner();
+    
+    try {
+        const snapshot = await database.ref(`orders/${orderId}`).once('value');
+        const order = snapshot.val();
+        
+        if (!order || order.status !== 'completed') {
+            throw new Error('Order not found or not completed');
+        }
+
+        const container = document.createElement('div');
+        container.className = 'p-8 bg-white';
+        container.innerHTML = `
+            <div class="text-center mb-8 border-b pb-6">
+                <h1 class="text-4xl font-bold text-indigo-600 mb-2">EatKaro</h1>
+                <p class="text-xl text-gray-600">Order Bill</p>
+                <p class="text-sm text-gray-500 mt-2">Generated on ${new Date().toLocaleString()}</p>
+            </div>
+            
+            <div class="mb-8 bg-indigo-50 p-6 rounded-lg">
+                <h2 class="text-2xl font-semibold mb-4 text-indigo-700">Order Information</h2>
+                <div class="grid grid-cols-2 gap-6">
+                    <div>
+                        <p class="text-gray-700 mb-2"><span class="font-semibold">Order ID:</span> ${orderId}</p>
+                        <p class="text-gray-700 mb-2"><span class="font-semibold">Date:</span> ${new Date(order.createdAt).toLocaleString()}</p>
+                        <p class="text-gray-700 mb-2"><span class="font-semibold">Status:</span> <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-sm">${order.status.toUpperCase()}</span></p>
+                    </div>
+                    <div>
+                        <p class="text-gray-700 mb-2"><span class="font-semibold">Restaurant:</span> ${order.sellerName}</p>
+                        <p class="text-gray-700 mb-2"><span class="font-semibold">Payment Method:</span> ${order.paymentMethod.toUpperCase()}</p>
+                        <p class="text-gray-700 mb-2"><span class="font-semibold">Delivery Address:</span> ${order.deliveryAddress || 'N/A'}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-8 bg-gray-50 p-6 rounded-lg">
+                <h2 class="text-2xl font-semibold mb-4 text-gray-700">Customer Information</h2>
+                <div class="grid grid-cols-2 gap-6">
+                    <div>
+                        <p class="text-gray-700 mb-2"><span class="font-semibold">Name:</span> ${userProfile?.fullName || 'N/A'}</p>
+                        <p class="text-gray-700 mb-2"><span class="font-semibold">Phone:</span> ${userProfile?.phone || 'N/A'}</p>
+                    </div>
+                    <div>
+                        <p class="text-gray-700 mb-2"><span class="font-semibold">Email:</span> ${currentUser?.email || 'N/A'}</p>
+                        <p class="text-gray-700 mb-2"><span class="font-semibold">Address:</span> ${userProfile?.address || 'N/A'}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-8">
+                <h2 class="text-2xl font-semibold mb-4 text-gray-700">Order Details</h2>
+                <table class="w-full border-collapse">
+                    <thead>
+                        <tr class="bg-indigo-100">
+                            <th class="px-4 py-3 text-left text-indigo-700 font-semibold">Item</th>
+                            <th class="px-4 py-3 text-center text-indigo-700 font-semibold">Quantity</th>
+                            <th class="px-4 py-3 text-right text-indigo-700 font-semibold">Price</th>
+                            <th class="px-4 py-3 text-right text-indigo-700 font-semibold">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${order.items?.map(item => `
+                            <tr class="border-b border-gray-200">
+                                <td class="px-4 py-3">
+                                    <div class="flex items-center">
+                                        <img src="${item.thumbnail}" alt="${item.name}" class="w-12 h-12 object-cover rounded-lg mr-3">
+                                        <div>
+                                            <p class="font-medium text-gray-900">${item.name}</p>
+                                            <p class="text-sm text-gray-500">${item.foodType === 'veg' ? '🟢 Vegetarian' : '🔴 Non-Vegetarian'}</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-4 py-3 text-center">${item.quantity}</td>
+                                <td class="px-4 py-3 text-right">₹${item.price.toFixed(2)}</td>
+                                <td class="px-4 py-3 text-right font-medium">₹${(item.price * item.quantity).toFixed(2)}</td>
+                            </tr>
+                        `).join('') || ''}
+                    </tbody>
+                    <tfoot>
+                        <tr class="border-t-2 border-gray-300">
+                            <td colspan="3" class="px-4 py-3 text-right font-medium text-gray-700">Subtotal:</td>
+                            <td class="px-4 py-3 text-right font-medium">₹${order.subtotal.toFixed(2)}</td>
+                        </tr>
+                        ${order.discount > 0 ? `
+                            <tr>
+                                <td colspan="3" class="px-4 py-3 text-right font-medium text-green-600">Discount:</td>
+                                <td class="px-4 py-3 text-right font-medium text-green-600">-₹${order.discount.toFixed(2)}</td>
+                            </tr>
+                        ` : ''}
+                        <tr class="border-t-2 border-gray-300">
+                            <td colspan="3" class="px-4 py-3 text-right font-bold text-gray-900">Total Amount:</td>
+                            <td class="px-4 py-3 text-right font-bold text-indigo-600">₹${order.total.toFixed(2)}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+            ${order.reviewed ? `
+                <div class="mb-8 bg-gray-50 p-6 rounded-lg">
+                    <h2 class="text-2xl font-semibold mb-4 text-gray-700">Customer Review</h2>
+                    <div class="p-4 bg-white rounded-lg shadow-sm">
+                        <div class="flex items-center mb-3">
+                            ${generateStarRating(order.rating)}
+                            <span class="text-sm text-gray-500 ml-2">
+                                ${new Date(order.reviewDate).toLocaleDateString()}
+                            </span>
+                        </div>
+                        <p class="text-gray-700">${order.reviewComment}</p>
+                        ${order.reviewReply ? `
+                            <div class="mt-4 p-4 bg-indigo-50 rounded-lg">
+                                <h5 class="font-semibold text-indigo-700 mb-2">Restaurant's Reply</h5>
+                                <p class="text-gray-700">${order.reviewReply}</p>
+                                <p class="text-sm text-gray-500 mt-2">
+                                    Replied on ${new Date(order.reviewReplyDate).toLocaleDateString()}
+                                </p>
+                            </div>
+                        ` : ''}
+                    </div>
+                </div>
+            ` : ''}
+
+            <div class="mt-8 text-center border-t pt-6">
+                <p class="text-gray-600 mb-2">Thank you for choosing EatKaro!</p>
+                <p class="text-sm text-gray-500">This is a computer-generated document and does not require a signature.</p>
+                <div class="mt-4 flex justify-center space-x-4">
+                    <p class="text-sm text-gray-500">For any queries, contact us at:</p>
+                    <p class="text-sm text-indigo-600">support@eatkaro.com</p>
+                </div>
+            </div>
+        `;
+
+        const opt = {
+            margin: 1,
+            filename: `eatkaro-order-${orderId}-${new Date().toISOString().split('T')[0]}.pdf`,
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+        };
+
+       
+        await html2pdf().set(opt).from(container).save();
+        
+        log('Order bill PDF generated successfully', 'success', { orderId });
+    } catch (error) {
+        log('Error generating order bill PDF', 'error', { error: error.message, orderId });
+        alert('Error generating bill. Please try again.');
+    }
+    
     hideSpinner();
 }
