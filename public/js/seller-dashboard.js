@@ -12,6 +12,184 @@ let lastSeenTimestamp = {};
 let typingStatus = {};
 let notificationSound = new Audio('/sounds/notification.mp3');
 
+let notificationTimeouts = {};
+let shownNotifications = new Set();
+
+function initializeNotifications() {
+  
+    const savedNotifications = localStorage.getItem('shownNotifications');
+    if (savedNotifications) {
+        shownNotifications = new Set(JSON.parse(savedNotifications));
+    }
+
+  
+    database.ref('orders').on('child_added', (snapshot) => {
+        const order = snapshot.val();
+        const notificationId = `order-${order.id}`;
+        if (order.sellerId === currentUser.uid && 
+            order.status === 'pending' && 
+            !shownNotifications.has(notificationId)) {
+            showNewOrderNotification(order);
+            shownNotifications.add(notificationId);
+            saveShownNotifications();
+        }
+    });
+
+
+    database.ref('chats').on('child_added', (snapshot) => {
+        const chatRef = snapshot.ref;
+        chatRef.on('child_added', (messageSnapshot) => {
+            const message = messageSnapshot.val();
+            const notificationId = `chat-${snapshot.key}-${messageSnapshot.key}`;
+            if (message.senderId !== currentUser.uid && 
+                !shownNotifications.has(notificationId)) {
+                showNewChatNotification(snapshot.key, message);
+                shownNotifications.add(notificationId);
+                saveShownNotifications();
+            }
+        });
+    });
+}
+
+function saveShownNotifications() {
+    localStorage.setItem('shownNotifications', JSON.stringify([...shownNotifications]));
+}
+
+function showNewOrderNotification(order) {
+    const notificationId = `order-${order.id}`;
+    
+
+    const badge = document.createElement('div');
+    badge.id = `notification-${notificationId}`;
+    badge.className = 'absolute -top-2 -right-2 bg-red-500 text-white rounded-full h-5 w-5 flex items-center justify-center text-xs animate-bounce';
+    badge.textContent = '1';
+    
+
+    const ordersButton = document.querySelector('button[onclick="showOrders()"]');
+    if (ordersButton) {
+        ordersButton.classList.add('relative');
+        ordersButton.appendChild(badge);
+    }
+    
+    const toast = document.createElement('div');
+    toast.className = 'fixed bottom-4 right-4 bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg transform transition-transform duration-300 translate-y-0 z-50 cursor-pointer';
+    toast.innerHTML = `
+        <div class="flex items-center space-x-3">
+            <div class="flex-shrink-0">
+                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+                </svg>
+            </div>
+            <div>
+                <p class="font-medium">New Order Received</p>
+                <p class="text-sm opacity-90">Order #${order.id}</p>
+            </div>
+        </div>
+    `;
+    
+    toast.onclick = () => {
+        showOrders();
+        showOrderTab('active');
+        toast.remove();
+    };
+    
+    document.body.appendChild(toast);
+    
+    setNotificationCleanup(notificationId, badge, toast);
+    
+    showNotification('New Order', `New order received: #${order.id}`);
+}
+
+function showNewChatNotification(orderId, message) {
+    const notificationId = `chat-${orderId}-${message.id}`;
+    
+    let badge = document.getElementById(`notification-${notificationId}`);
+    if (!badge) {
+        badge = document.createElement('div');
+        badge.id = `notification-${notificationId}`;
+        badge.className = 'absolute -top-2 -right-2 bg-red-500 text-white rounded-full h-5 w-5 flex items-center justify-center text-xs animate-bounce';
+        badge.textContent = '1';
+        
+      
+        const chatButton = document.querySelector(`button[onclick*="initializeChat('${orderId}')"]`);
+        if (chatButton) {
+            chatButton.classList.add('relative');
+            chatButton.appendChild(badge);
+        }
+    } else {
+        const count = parseInt(badge.textContent) + 1;
+        badge.textContent = count.toString();
+    }
+    
+    const toast = document.createElement('div');
+    toast.className = 'fixed bottom-4 right-4 bg-indigo-600 text-white px-6 py-3 rounded-lg shadow-lg transform transition-transform duration-300 translate-y-0 z-50 cursor-pointer';
+    toast.innerHTML = `
+        <div class="flex items-center space-x-3">
+            <div class="flex-shrink-0">
+                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/>
+                </svg>
+            </div>
+            <div>
+                <p class="font-medium">New Message</p>
+                <p class="text-sm opacity-90">${message.text}</p>
+            </div>
+        </div>
+    `;
+    
+  
+    toast.onclick = () => {
+        document.getElementById('chat-modal').classList.remove('hidden');
+        initializeChat(orderId);
+        toast.remove();
+    };
+    
+    document.body.appendChild(toast);
+    
+    setNotificationCleanup(notificationId, badge, toast);
+    
+    showNotification('New Message', `New message from ${message.senderName || 'Customer'}`);
+}
+
+function setNotificationCleanup(notificationId, badge, toast) {
+   
+    if (notificationTimeouts[notificationId]) {
+        clearTimeout(notificationTimeouts[notificationId]);
+    }
+    
+  
+    notificationTimeouts[notificationId] = setTimeout(() => {
+        if (badge) badge.remove();
+        if (toast) {
+            toast.classList.add('translate-y-full');
+            setTimeout(() => toast.remove(), 300);
+        }
+        delete notificationTimeouts[notificationId];
+    }, 2 * 60 * 1000);
+}
+
+function showNotification(title, message) {
+    if (!("Notification" in window)) {
+        console.log('Notifications not supported');
+        return;
+    }
+    
+    if (Notification.permission === "granted") {
+        new Notification(title, {
+            body: message,
+            icon: '/images/logo.png'
+        });
+    } else if (Notification.permission !== "denied") {
+        Notification.requestPermission().then(permission => {
+            if (permission === "granted") {
+                new Notification(title, {
+                    body: message,
+                    icon: '/images/logo.png'
+                });
+            }
+        });
+    }
+}
 
 function playNotificationSound() {
     try {
@@ -1923,6 +2101,7 @@ function hideVerifyPaymentModal() {
 
 document.addEventListener('DOMContentLoaded', () => {
     initializePaymentVerification();
+    initializeNotifications();
 });
 
 

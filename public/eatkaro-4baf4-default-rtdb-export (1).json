@@ -1,0 +1,1728 @@
+{
+  "chats": {
+    "order_1747802348366_mf80x5pc1": {
+      "messages": {
+        "-OQlBG4cr31gZkwaDJZ4": {
+          "seen": true,
+          "senderId": "0FJ7Lldia2YCyeMUFLgTwlEjPHN2",
+          "senderName": "Restaurant",
+          "text": "hi",
+          "timestamp": 1747803246233
+        },
+        "-OQlBlSxCKgozmgPiU0V": {
+          "seen": true,
+          "senderId": "0FJ7Lldia2YCyeMUFLgTwlEjPHN2",
+          "senderName": "Restaurant",
+          "text": "hi",
+          "timestamp": 1747803378755
+        }
+      },
+      "typing": {
+        "isTyping": false,
+        "timestamp": 1747803379038,
+        "userId": "0FJ7Lldia2YCyeMUFLgTwlEjPHN2"
+      }
+    },
+    "order_1747805131324_54kvmzo7r": {
+      "-OQlIVkV0dtwUOL_1Yk3": {
+        "senderId": "0FJ7Lldia2YCyeMUFLgTwlEjPHN2",
+        "senderName": "Beta Biryani",
+        "text": "hi",
+        "timestamp": "2025-05-21T05:25:45.327Z"
+      },
+      "-OQlIXDf619zE3AJ_RVC": {
+        "seen": false,
+        "senderId": "GRvrXwKQT9NJhsgnDpgorMuWD5l2",
+        "senderName": "User",
+        "text": "hello",
+        "timestamp": "2025-05-21T05:25:51.372Z"
+      }
+    },
+    "order_1747806987854_zcxf6sr1y": {
+      "-OQlxyJTOB9kK_GqvG21": {
+        "seen": false,
+        "senderId": "GRvrXwKQT9NJhsgnDpgorMuWD5l2",
+        "senderName": "User",
+        "text": "hi",
+        "timestamp": "2025-05-21T08:31:16.445Z"
+      },
+      "-OQly99JQ5JqqwRNZSan": {
+        "senderId": "0FJ7Lldia2YCyeMUFLgTwlEjPHN2",
+        "senderName": "Beta Biryani",
+        "text": "hello",
+        "timestamp": "2025-05-21T08:32:04.948Z"
+      },
+      "-OQlyBXtA6-7EVp10jO1": {
+        "seen": false,
+        "senderId": "GRvrXwKQT9NJhsgnDpgorMuWD5l2",
+        "senderName": "User",
+        "text": "wassup",
+        "timestamp": "2025-05-21T08:32:14.713Z"
+      },
+      "-OQlyCUPxq0RPBXT_1sl": {
+        "seen": false,
+        "senderId": "GRvrXwKQT9NJhsgnDpgorMuWD5l2",
+        "senderName": "User",
+        "text": "yo",
+        "timestamp": "2025-05-21T08:32:18.586Z"
+      },
+      "-OQlyteIuHFqupZh_Smv": {
+        "seen": false,
+        "senderId": "GRvrXwKQT9NJhsgnDpgorMuWD5l2",
+        "senderName": "User",
+        "text": "yo",
+        "timestamp": "2025-05-21T08:35:19.522Z"
+      }
+    },
+    "order_1747810516715_nyq6xu9vr": {
+      "-OQlc4BQZsaZovwspfli": {
+        "seen": false,
+        "senderId": "GRvrXwKQT9NJhsgnDpgorMuWD5l2",
+        "senderName": "User",
+        "text": "HI",
+        "timestamp": "2025-05-21T06:55:37.438Z"
+      },
+      "-OQlcC5edLUJW8zSR2tm": {
+        "seen": false,
+        "senderId": "GRvrXwKQT9NJhsgnDpgorMuWD5l2",
+        "senderName": "User",
+        "text": "HELLO",
+        "timestamp": "2025-05-21T06:56:09.837Z"
+      }
+    },
+    "order_1747835635566_76yh2tg3x": {
+      "-OQnD3Qv4tv8pq7ioqLY": {
+        "seen": false,
+        "senderId": "b8Ip7qQR5WZjhe8Ag9tPlNm8qA52",
+        "senderName": "User",
+        "text": "HI",
+        "timestamp": "2025-05-21T14:21:13.129Z"
+      }
+    },
+    "order_1747835640914_4gjugbjgy": {
+      "-OQn6vD9wHyGx9Q_HND8": {
+        "seen": false,
+        "senderId": "b8Ip7qQR5WZjhe8Ag9tPlNm8qA52",
+        "senderName": "User",
+        "text": "HI",
+        "timestamp": "2025-05-21T13:54:22.529Z"
+      },
+      "-OQn6xHPsxWrHQKaOa65": {
+        "senderId": "0FJ7Lldia2YCyeMUFLgTwlEjPHN2",
+        "senderName": "Beta Biryani",
+        "text": "HELLO",
+        "timestamp": "2025-05-21T13:54:30.992Z"
+      },
+      "-OQn6z9BEoD6gJPhwg8O": {
+        "seen": false,
+        "senderId": "b8Ip7qQR5WZjhe8Ag9tPlNm8qA52",
+        "senderName": "User",
+        "text": "MAUW",
+        "timestamp": "2025-05-21T13:54:38.659Z"
+      },
+      "-OQnD8s9w4qJi-B6_4J4": {
+        "senderId": "0FJ7Lldia2YCyeMUFLgTwlEjPHN2",
+        "senderName": "Beta Biryani",
+        "text": "HI",
+        "timestamp": "2025-05-21T14:21:35.385Z"
+      }
+    },
+    "order_1747837320493_wvknza4f5": {
+      "-OQnDIgBzIwkGGKAtX5e": {
+        "seen": false,
+        "senderId": "b8Ip7qQR5WZjhe8Ag9tPlNm8qA52",
+        "senderName": "User",
+        "text": "HI",
+        "timestamp": "2025-05-21T14:22:15.610Z"
+      },
+      "-OQnDLV9h65w28Q3-SSr": {
+        "senderId": "0FJ7Lldia2YCyeMUFLgTwlEjPHN2",
+        "senderName": "Beta Biryani",
+        "text": "hello",
+        "timestamp": "2025-05-21T14:22:27.097Z"
+      }
+    },
+    "order_1747837882878_auh5az7xo": {
+      "-OQnFTs4UoSinPko38OU": {
+        "seen": false,
+        "senderId": "b8Ip7qQR5WZjhe8Ag9tPlNm8qA52",
+        "senderName": "User",
+        "text": "HI",
+        "timestamp": "2025-05-21T14:31:45.693Z"
+      },
+      "-OQnFVIp5W-pPeeRi9fk": {
+        "senderId": "0FJ7Lldia2YCyeMUFLgTwlEjPHN2",
+        "senderName": "Beta Biryani",
+        "text": "HELLO",
+        "timestamp": "2025-05-21T14:31:51.582Z"
+      }
+    },
+    "order_1747849130129_m63fypaxz": {
+      "-OQnvPhW8IxYyZomyg8t": {
+        "senderId": "0FJ7Lldia2YCyeMUFLgTwlEjPHN2",
+        "senderName": "Beta Biryani",
+        "text": "hi",
+        "timestamp": "2025-05-21T17:39:21.686Z"
+      },
+      "-OQnvQ7DrN_dClUQb5ko": {
+        "seen": false,
+        "senderId": "GRvrXwKQT9NJhsgnDpgorMuWD5l2",
+        "senderName": "User",
+        "text": "hello",
+        "timestamp": "2025-05-21T17:39:28.155Z"
+      }
+    },
+    "order_1747850012628_telmfwpyc": {
+      "-OQnzDtSqkkOcccj4raP": {
+        "seen": false,
+        "senderId": "PKKbofIT1icTjvGPs2653mZAx4i2",
+        "senderName": "User",
+        "text": "Hi",
+        "timestamp": "2025-05-21T17:56:01.830Z"
+      },
+      "-OQnzGmdD_TYFHN-pcTU": {
+        "seen": false,
+        "senderId": "PKKbofIT1icTjvGPs2653mZAx4i2",
+        "senderName": "User",
+        "text": "I am Goo",
+        "timestamp": "2025-05-21T17:56:13.684Z"
+      },
+      "-OQnzXIw_2kwSXjDzcVd": {
+        "seen": false,
+        "senderId": "PKKbofIT1icTjvGPs2653mZAx4i2",
+        "senderName": "User",
+        "text": "hello jiii",
+        "timestamp": "2025-05-21T17:57:21.351Z"
+      },
+      "-OQnzuuxt51U5w8TLJWh": {
+        "seen": false,
+        "senderId": "PKKbofIT1icTjvGPs2653mZAx4i2",
+        "senderName": "User",
+        "text": "thoda jaldi reply doge",
+        "timestamp": "2025-05-21T17:59:02.152Z"
+      },
+      "-OQnzwu8Knjv7-WQF2dY": {
+        "seen": false,
+        "senderId": "PKKbofIT1icTjvGPs2653mZAx4i2",
+        "senderName": "User",
+        "text": "chuhe daud rahe hain",
+        "timestamp": "2025-05-21T17:59:10.292Z"
+      },
+      "-OQo-1VvloGmIsfQb7yy": {
+        "seen": false,
+        "senderId": "PKKbofIT1icTjvGPs2653mZAx4i2",
+        "senderName": "User",
+        "text": "abhi haathi daud rhe hain",
+        "timestamp": "2025-05-21T17:59:33.254Z"
+      },
+      "-OQo-4cUVzIw7A2wEdgR": {
+        "seen": false,
+        "senderId": "PKKbofIT1icTjvGPs2653mZAx4i2",
+        "senderName": "User",
+        "text": "jaldi ek plate rex bhej do",
+        "timestamp": "2025-05-21T17:59:46.026Z"
+      },
+      "-OQo-70BjS_JXG7Htag_": {
+        "senderId": "0FJ7Lldia2YCyeMUFLgTwlEjPHN2",
+        "senderName": "Beta Biryani",
+        "text": "thil hai",
+        "timestamp": "2025-05-21T17:59:55.847Z"
+      },
+      "-OQo-AWayC0IPIqbURqL": {
+        "senderId": "0FJ7Lldia2YCyeMUFLgTwlEjPHN2",
+        "senderName": "Beta Biryani",
+        "text": "thik hai payment kardo qr pe",
+        "timestamp": "2025-05-21T18:00:10.209Z"
+      },
+      "-OQo-Ba3B2kdSEUnYZ1R": {
+        "seen": false,
+        "senderId": "PKKbofIT1icTjvGPs2653mZAx4i2",
+        "senderName": "User",
+        "text": "itna late koansa company reply deta hai",
+        "timestamp": "2025-05-21T18:00:14.543Z"
+      },
+      "-OQo-DoUXUoVNJNsdnIM": {
+        "seen": false,
+        "senderId": "PKKbofIT1icTjvGPs2653mZAx4i2",
+        "senderName": "User",
+        "text": "aise kaise ye chalega",
+        "timestamp": "2025-05-21T18:00:23.658Z"
+      },
+      "-OQo-FDboVK4xGpWboD1": {
+        "senderId": "0FJ7Lldia2YCyeMUFLgTwlEjPHN2",
+        "senderName": "Beta Biryani",
+        "text": "hamare yahn aissa hi hota hai",
+        "timestamp": "2025-05-21T18:00:29.473Z"
+      },
+      "-OQo-GlZ-IGqxOAQWSKS": {
+        "seen": false,
+        "senderId": "PKKbofIT1icTjvGPs2653mZAx4i2",
+        "senderName": "User",
+        "text": "thodi mehnat karo active raho",
+        "timestamp": "2025-05-21T18:00:35.759Z"
+      },
+      "-OQo-IQTpJfXzamBOlgt": {
+        "senderId": "0FJ7Lldia2YCyeMUFLgTwlEjPHN2",
+        "senderName": "Beta Biryani",
+        "text": "oky boss",
+        "timestamp": "2025-05-21T18:00:42.585Z"
+      },
+      "-OQo-Iip8aumvxrco1q9": {
+        "seen": false,
+        "senderId": "PKKbofIT1icTjvGPs2653mZAx4i2",
+        "senderName": "User",
+        "text": "paise kuch kamao tab phir",
+        "timestamp": "2025-05-21T18:00:43.775Z"
+      },
+      "-OQo-KcZisnaulyxEzqn": {
+        "senderId": "0FJ7Lldia2YCyeMUFLgTwlEjPHN2",
+        "senderName": "Beta Biryani",
+        "text": "ok",
+        "timestamp": "2025-05-21T18:00:51.614Z"
+      },
+      "-OQo-L30DUw8WWj-OQu7": {
+        "seen": false,
+        "senderId": "PKKbofIT1icTjvGPs2653mZAx4i2",
+        "senderName": "User",
+        "text": "hmm jaldi ek plate BBB",
+        "timestamp": "2025-05-21T18:00:53.324Z"
+      },
+      "-OQo-MnBohQQcuDhK5fH": {
+        "senderId": "0FJ7Lldia2YCyeMUFLgTwlEjPHN2",
+        "senderName": "Beta Biryani",
+        "text": "okkie",
+        "timestamp": "2025-05-21T18:01:00.487Z"
+      },
+      "-OQo-PpuqX5yAfIjfIKw": {
+        "seen": false,
+        "senderId": "PKKbofIT1icTjvGPs2653mZAx4i2",
+        "senderName": "User",
+        "text": "kitna time",
+        "timestamp": "2025-05-21T18:01:12.900Z"
+      },
+      "-OQo-UfToETZlNmLf1Bc": {
+        "senderId": "0FJ7Lldia2YCyeMUFLgTwlEjPHN2",
+        "senderName": "Beta Biryani",
+        "text": "june",
+        "timestamp": "2025-05-21T18:01:32.761Z"
+      },
+      "-OQo-V-fq3UOBGSlrQwe": {
+        "senderId": "0FJ7Lldia2YCyeMUFLgTwlEjPHN2",
+        "senderName": "Beta Biryani",
+        "text": "12",
+        "timestamp": "2025-05-21T18:01:34.118Z"
+      },
+      "-OQo-bZRE-LFEFenOtjF": {
+        "seen": false,
+        "senderId": "PKKbofIT1icTjvGPs2653mZAx4i2",
+        "senderName": "User",
+        "text": "chalo phir tab tak toh chuhe ka samrajya ban jayega..koi nahi...padhlo abhi",
+        "timestamp": "2025-05-21T18:02:05.031Z"
+      },
+      "-OQo-eUBJd2sTgeRNFvW": {
+        "seen": false,
+        "senderId": "PKKbofIT1icTjvGPs2653mZAx4i2",
+        "senderName": "User",
+        "text": "chalo jii bye hum padhyasi",
+        "timestamp": "2025-05-21T18:02:16.983Z"
+      },
+      "-OQo-ebMJHiTQ1GLd-Wz": {
+        "senderId": "0FJ7Lldia2YCyeMUFLgTwlEjPHN2",
+        "senderName": "Beta Biryani",
+        "text": "hihi lol",
+        "timestamp": "2025-05-21T18:02:17.554Z"
+      },
+      "-OQo-hoyHMQyfNTETL1k": {
+        "senderId": "0FJ7Lldia2YCyeMUFLgTwlEjPHN2",
+        "senderName": "Beta Biryani",
+        "text": "all the best",
+        "timestamp": "2025-05-21T18:02:30.713Z"
+      },
+      "-OQo-jGBP6AHdDWUPHDq": {
+        "seen": false,
+        "senderId": "PKKbofIT1icTjvGPs2653mZAx4i2",
+        "senderName": "User",
+        "text": "aapko bhi",
+        "timestamp": "2025-05-21T18:02:36.566Z"
+      },
+      "-OQo-kyVHrcPxwpXBYhW": {
+        "seen": false,
+        "senderId": "PKKbofIT1icTjvGPs2653mZAx4i2",
+        "senderName": "User",
+        "text": "😄😄😄😄😄",
+        "timestamp": "2025-05-21T18:02:43.563Z"
+      },
+      "-OQo-l8HxFBn18xcuRUC": {
+        "senderId": "0FJ7Lldia2YCyeMUFLgTwlEjPHN2",
+        "senderName": "Beta Biryani",
+        "text": "bye",
+        "timestamp": "2025-05-21T18:02:44.301Z"
+      },
+      "-OQo-pGFA4v0uprbZYao": {
+        "seen": false,
+        "senderId": "PKKbofIT1icTjvGPs2653mZAx4i2",
+        "senderName": "User",
+        "text": "🖐🖐🖐🖐",
+        "timestamp": "2025-05-21T18:03:01.147Z"
+      }
+    }
+  },
+  "coupons": {
+    "SUMMER30": {
+      "createdAt": "2025-05-21T17:43:26.339Z",
+      "discountType": "percentage",
+      "discountValue": 30,
+      "expiryDate": "2025-05-23",
+      "lastUsedAt": "2025-05-21T17:46:16.995Z",
+      "usageCount": 2,
+      "usageLimit": 2
+    },
+    "TEST20": {
+      "createdAt": "2025-05-20T08:47:24.075Z",
+      "discountType": "percentage",
+      "discountValue": 20,
+      "expiryDate": "2025-05-28",
+      "lastUsedAt": "2025-05-21T06:45:05.673Z",
+      "usageCount": 2,
+      "usageLimit": 22
+    },
+    "WELCOME10": {
+      "createdAt": "2025-05-19T20:29:17.274Z",
+      "discountType": "percentage",
+      "discountValue": 20,
+      "expiryDate": "2025-05-23",
+      "lastUsedAt": "2025-05-21T13:51:16.459Z",
+      "usageCount": 6,
+      "usageLimit": 20
+    }
+  },
+  "items": {
+    "-OQe8cjCr-Rjxm2xsqZ-": {
+      "createdAt": "2025-05-19T20:05:17.277Z",
+      "description": "A delightful medley of fresh vegetables like carrots, beans, peas, and potatoes, slow-cooked with long-grain basmati rice, aromatic spices, and a touch of saffron. Every spoonful offers a burst of flavor, balanced with subtle heat and traditional Indian herbs. Served with cool raita and a side of tangy salan, this vegetarian classic is both comforting and festive.",
+      "foodType": "veg",
+      "images": [
+        "https://res.cloudinary.com/dqaygduva/image/upload/v1747685106/cjx8y5l5f7ndi15yxzea.jpg",
+        "https://res.cloudinary.com/dqaygduva/image/upload/v1747685108/kgwgpkhgibq1g8j5i3tz.jpg",
+        "https://res.cloudinary.com/dqaygduva/image/upload/v1747685110/cllt9i7iljjm0tqrjpcx.jpg"
+      ],
+      "name": "Veg Biryani",
+      "price": 100,
+      "quantity": 26,
+      "sellerId": "0FJ7Lldia2YCyeMUFLgTwlEjPHN2",
+      "thumbnail": "https://res.cloudinary.com/dqaygduva/image/upload/v1747685088/kgm3pcjnj1tgbixfdx7n.jpg",
+      "updatedAt": "2025-05-20T12:57:48.915Z"
+    },
+    "-OQe9CiXYbX1pjRw1Hl3": {
+      "createdAt": "2025-05-19T20:07:48.787Z",
+      "description": "Tender, juicy chicken pieces marinated in a blend of yogurt, ginger, garlic, and traditional Indian spices, then layered with fragrant basmati rice and slow-cooked in the dum style. Infused with saffron, caramelized onions, and whole spices, this royal dish offers a perfect balance of flavor, aroma, and spice. Served hot with a side of raita and spicy salan for a complete, satisfying meal.",
+      "foodType": "non-veg",
+      "images": [
+        "https://res.cloudinary.com/dqaygduva/image/upload/v1747685262/gd4zhr6wlrwvhzvbjz6v.jpg",
+        "https://res.cloudinary.com/dqaygduva/image/upload/v1747685263/hxpruuasyy85e3zsogor.jpg",
+        "https://res.cloudinary.com/dqaygduva/image/upload/v1747685264/hjzk1abgcq3bo8ewmjar.jpg"
+      ],
+      "name": "Non-Veg Biryani",
+      "price": 120,
+      "quantity": 24,
+      "sellerId": "0FJ7Lldia2YCyeMUFLgTwlEjPHN2",
+      "thumbnail": "https://res.cloudinary.com/dqaygduva/image/upload/v1747685250/i1zsmln2uqqdfl5fqjtw.jpg",
+      "updatedAt": "2025-05-20T09:17:21.339Z"
+    },
+    "-OQeAc5I3eUXmiSGvZTR": {
+      "createdAt": "2025-05-19T20:13:58.948Z",
+      "description": "Soft, succulent cubes of paneer marinated in rich spices and gently tossed with caramelized onions and fresh herbs. Layered with fragrant basmati rice and slow-cooked with saffron and whole spices to infuse every grain with flavor. This vegetarian delight is both hearty and aromatic, served with cooling raita and spicy biryani salan for a complete and satisfying experience.",
+      "foodType": "veg",
+      "images": [
+        "https://res.cloudinary.com/dqaygduva/image/upload/v1747685631/itefekxmuq4t7uctibdu.jpg",
+        "https://res.cloudinary.com/dqaygduva/image/upload/v1747685631/bn9krcnbgiuoyuv5lo56.jpg",
+        "https://res.cloudinary.com/dqaygduva/image/upload/v1747685633/hka7aokvbfcslohjrsej.jpg"
+      ],
+      "name": "Paneer Biryani",
+      "price": 140,
+      "quantity": 39,
+      "sellerId": "0FJ7Lldia2YCyeMUFLgTwlEjPHN2",
+      "thumbnail": "https://res.cloudinary.com/dqaygduva/image/upload/v1747685622/zbokkqhtioupaghl6odl.jpg",
+      "updatedAt": "2025-05-20T09:17:22.849Z"
+    },
+    "-OQicuGM1jOtiRDd7RJb": {
+      "category": "main-course",
+      "createdAt": "2025-05-20T17:00:23.898Z",
+      "description": "Soft, succulent cubes of paneer marinated in rich spices and gently tossed with caramelized onions and fresh herbs. Layered with fragrant basmati rice and slow-cooked with saffron and whole spices to infuse every grain with flavor. This vegetarian delight is both hearty and aromatic, served with cooling raita and spicy biryani salan for a complete and satisfying experience.",
+      "foodType": "veg",
+      "images": [
+        "https://res.cloudinary.com/dqaygduva/image/upload/v1747685631/itefekxmuq4t7uctibdu.jpg",
+        "https://res.cloudinary.com/dqaygduva/image/upload/v1747685631/bn9krcnbgiuoyuv5lo56.jpg",
+        "https://res.cloudinary.com/dqaygduva/image/upload/v1747685633/hka7aokvbfcslohjrsej.jpg"
+      ],
+      "name": "Paneer Biryani",
+      "price": 140,
+      "quantity": 41,
+      "sellerId": "0FJ7Lldia2YCyeMUFLgTwlEjPHN2",
+      "sellerName": "Beta Biryani",
+      "thumbnail": "https://res.cloudinary.com/dqaygduva/image/upload/v1747685622/zbokkqhtioupaghl6odl.jpg",
+      "updatedAt": "2025-05-20T17:00:23.898Z"
+    },
+    "-OQl_DvT2Hm1bMy2Qf1F": {
+      "category": "main-course",
+      "createdAt": "2025-05-21T06:43:10.890Z",
+      "description": "Welcome to Chole Bhature – Satish Hostel, your go-to destination for authentic, spicy, and soul-satisfying North Indian street food! Located right in the heart of Satish Hostel, we specialize in serving hot, fluffy bhature paired with deliciously spiced chole, made fresh every morning with traditional recipes passed down through generations.\n\nWhether you're craving a heavy breakfast, a filling lunch, or just looking to treat yourself to a comforting desi meal, we've got you covered. We also offer a selection of lassi, rajma-chawal, and other classic hostel favorites at student-friendly prices.\n\n💡 Perfect for:\n\nQuick hostel bites\n\nLate-morning brunches\n\nAffordable, filling meals",
+      "foodType": "veg",
+      "images": [
+        "https://res.cloudinary.com/dqaygduva/image/upload/v1747809777/v430qfuabxqlsjvmxaoe.jpg",
+        "https://res.cloudinary.com/dqaygduva/image/upload/v1747809778/c1a0morojh9nrg5nb5yb.jpg",
+        "https://res.cloudinary.com/dqaygduva/image/upload/v1747809779/gvrmog2qz0e7i485hthq.jpg",
+        "https://res.cloudinary.com/dqaygduva/image/upload/v1747809779/howrfskal7vsxbibx6f8.jpg"
+      ],
+      "name": "Cholle Bhature",
+      "price": 60,
+      "quantity": 50,
+      "sellerId": "vuRLXm9BlSViNh2kYSaWEVx9Jir1",
+      "sellerName": "Satish Biryani",
+      "thumbnail": "https://res.cloudinary.com/dqaygduva/image/upload/v1747809611/fjazm1pcudtlvcfau786.jpg",
+      "updatedAt": "2025-05-21T17:22:56.030Z"
+    },
+    "-OQnlycgGL1AaopOMgGm": {
+      "category": "main-course",
+      "createdAt": "2025-05-21T16:58:07.399Z",
+      "description": "Our Aloo Paratha is a campus favorite — a golden, pan-roasted flatbread stuffed with a perfectly seasoned potato filling, straight from the Satish Hostel kitchen. Each paratha is made to order with love, ghee, and a pinch of hostel-style nostalgia.\n\nServed piping hot with:\n\nHomemade curd\n\nSpicy pickle\n\nOptional: Butter topping or extra ghee finish\n\nWhether it’s breakfast or a mid-day hunger pang, our Aloo Paratha hits the spot every time — warm, filling, and bursting with North Indian flavor.\n\n💸 Budget-friendly. Flavor-rich. Always satisfying.\n\n🔥 Pro tip: Add a chilled lassi for the ultimate combo!",
+      "foodType": "veg",
+      "images": [
+        "https://res.cloudinary.com/dqaygduva/image/upload/v1747846588/yknpmfxc8dhigfdafedg.jpg",
+        "https://res.cloudinary.com/dqaygduva/image/upload/v1747846629/ge3dg3e76bddx2lenfee.jpg",
+        "https://res.cloudinary.com/dqaygduva/image/upload/v1747846641/pxzopjiqs6flev3dd7ky.jpg",
+        "https://res.cloudinary.com/dqaygduva/image/upload/v1747846657/kbkmjrunlxwc8isauqkv.jpg",
+        "https://res.cloudinary.com/dqaygduva/image/upload/v1747846668/gkmrkpzanlt1stkzhwtf.jpg"
+      ],
+      "name": "ALOO PARATHA",
+      "price": 20,
+      "quantity": 50,
+      "sellerId": "vuRLXm9BlSViNh2kYSaWEVx9Jir1",
+      "sellerName": "Satish Biryani",
+      "thumbnail": "https://res.cloudinary.com/dqaygduva/image/upload/v1747846518/gwzmglvpj6trlxu6g5xx.jpg",
+      "updatedAt": "2025-05-21T16:58:07.399Z"
+    },
+    "-OQnoujrHq7mpE-fx2Kb": {
+      "category": "main-course",
+      "createdAt": "2025-05-21T17:10:57.897Z",
+      "description": "Welcome to Chole Bhature – Satish Hostel, your go-to destination for authentic, spicy, and soul-satisfying North Indian street food! Located right in the heart of Satish Hostel, we specialize in serving hot, fluffy bhature paired with deliciously spiced chole, made fresh every morning with traditional recipes passed down through generations.\n\nWhether you're craving a heavy breakfast, a filling lunch, or just looking to treat yourself to a comforting desi meal, we've got you covered. We also offer a selection of lassi, rajma-chawal, and other classic hostel favorites at student-friendly prices.\n\n💡 Perfect for:\n\nQuick hostel bites\n\nLate-morning brunches\n\nAffordable, filling meals",
+      "foodType": "veg",
+      "images": [
+        "https://res.cloudinary.com/dqaygduva/image/upload/v1747809777/v430qfuabxqlsjvmxaoe.jpg",
+        "https://res.cloudinary.com/dqaygduva/image/upload/v1747809778/c1a0morojh9nrg5nb5yb.jpg",
+        "https://res.cloudinary.com/dqaygduva/image/upload/v1747809779/gvrmog2qz0e7i485hthq.jpg",
+        "https://res.cloudinary.com/dqaygduva/image/upload/v1747809779/howrfskal7vsxbibx6f8.jpg"
+      ],
+      "name": "Cholle Bhature",
+      "price": 60,
+      "quantity": 600,
+      "sellerId": "vuRLXm9BlSViNh2kYSaWEVx9Jir1",
+      "sellerName": "Satish Biryani",
+      "thumbnail": "https://res.cloudinary.com/dqaygduva/image/upload/v1747809611/fjazm1pcudtlvcfau786.jpg",
+      "updatedAt": "2025-05-21T17:10:57.896Z"
+    }
+  },
+  "orders": {
+    "order_1747839126274_5f626l73i": {
+      "couponApplied": false,
+      "createdAt": "2025-05-21T14:52:06.274Z",
+      "deliveryAddress": "Institute Of Technical Education Research ITER, Bhubaneswar ; Jagamohan Nagar, Khandagiri, Bhubaneswar, Odisha PIN Code - 751030",
+      "deliveryInstructions": "",
+      "discount": 0,
+      "items": [
+        {
+          "description": "A delightful medley of fresh vegetables like carrots, beans, peas, and potatoes, slow-cooked with long-grain basmati rice, aromatic spices, and a touch of saffron. Every spoonful offers a burst of flavor, balanced with subtle heat and traditional Indian herbs. Served with cool raita and a side of tangy salan, this vegetarian classic is both comforting and festive.",
+          "foodType": "veg",
+          "id": "-OQe8cjCr-Rjxm2xsqZ-",
+          "images": [
+            "https://res.cloudinary.com/dqaygduva/image/upload/v1747685106/cjx8y5l5f7ndi15yxzea.jpg",
+            "https://res.cloudinary.com/dqaygduva/image/upload/v1747685108/kgwgpkhgibq1g8j5i3tz.jpg",
+            "https://res.cloudinary.com/dqaygduva/image/upload/v1747685110/cllt9i7iljjm0tqrjpcx.jpg"
+          ],
+          "name": "Veg Biryani",
+          "price": 100,
+          "quantity": 1,
+          "thumbnail": "https://res.cloudinary.com/dqaygduva/image/upload/v1747685088/kgm3pcjnj1tgbixfdx7n.jpg"
+        }
+      ],
+      "orderId": "order_1747839126274_5f626l73i",
+      "paymentMethod": "online",
+      "sellerId": "0FJ7Lldia2YCyeMUFLgTwlEjPHN2",
+      "sellerName": "Beta Biryani",
+      "status": "pending_payment",
+      "statusHistory": [
+        {
+          "note": "Waiting for payment verification",
+          "status": "pending_payment",
+          "timestamp": "2025-05-21T14:52:06.274Z"
+        }
+      ],
+      "subtotal": 100,
+      "total": 100,
+      "updatedAt": "2025-05-21T14:52:06.274Z",
+      "userId": "b8Ip7qQR5WZjhe8Ag9tPlNm8qA52",
+      "userName": "Goodly",
+      "userPhone": "08077774326"
+    },
+    "order_1747839282095_8ah5b6lsz": {
+      "couponApplied": false,
+      "createdAt": "2025-05-21T14:54:42.096Z",
+      "deliveryAddress": "Institute Of Technical Education Research ITER, Bhubaneswar ; Jagamohan Nagar, Khandagiri, Bhubaneswar, Odisha PIN Code - 751030",
+      "deliveryInstructions": "",
+      "discount": 0,
+      "items": [
+        {
+          "description": "A delightful medley of fresh vegetables like carrots, beans, peas, and potatoes, slow-cooked with long-grain basmati rice, aromatic spices, and a touch of saffron. Every spoonful offers a burst of flavor, balanced with subtle heat and traditional Indian herbs. Served with cool raita and a side of tangy salan, this vegetarian classic is both comforting and festive.",
+          "foodType": "veg",
+          "id": "-OQe8cjCr-Rjxm2xsqZ-",
+          "images": [
+            "https://res.cloudinary.com/dqaygduva/image/upload/v1747685106/cjx8y5l5f7ndi15yxzea.jpg",
+            "https://res.cloudinary.com/dqaygduva/image/upload/v1747685108/kgwgpkhgibq1g8j5i3tz.jpg",
+            "https://res.cloudinary.com/dqaygduva/image/upload/v1747685110/cllt9i7iljjm0tqrjpcx.jpg"
+          ],
+          "name": "Veg Biryani",
+          "price": 100,
+          "quantity": 1,
+          "thumbnail": "https://res.cloudinary.com/dqaygduva/image/upload/v1747685088/kgm3pcjnj1tgbixfdx7n.jpg"
+        }
+      ],
+      "orderId": "order_1747839282095_8ah5b6lsz",
+      "paymentMethod": "online",
+      "paymentStatus": "paid",
+      "sellerId": "0FJ7Lldia2YCyeMUFLgTwlEjPHN2",
+      "sellerName": "Beta Biryani",
+      "status": "preparing",
+      "statusHistory": [
+        {
+          "note": "Waiting for payment verification",
+          "status": "pending_payment",
+          "timestamp": "2025-05-21T14:54:42.096Z"
+        }
+      ],
+      "subtotal": 100,
+      "total": 100,
+      "updatedAt": "2025-05-21T14:54:42.096Z",
+      "userId": "b8Ip7qQR5WZjhe8Ag9tPlNm8qA52",
+      "userName": "Goodly",
+      "userPhone": "08077774326"
+    },
+    "order_1747839313148_81ddpqjmp": {
+      "couponApplied": false,
+      "createdAt": "2025-05-21T14:55:13.148Z",
+      "deliveryAddress": "Institute Of Technical Education Research ITER, Bhubaneswar ; Jagamohan Nagar, Khandagiri, Bhubaneswar, Odisha PIN Code - 751030",
+      "deliveryInstructions": "",
+      "discount": 0,
+      "items": [
+        {
+          "description": "A delightful medley of fresh vegetables like carrots, beans, peas, and potatoes, slow-cooked with long-grain basmati rice, aromatic spices, and a touch of saffron. Every spoonful offers a burst of flavor, balanced with subtle heat and traditional Indian herbs. Served with cool raita and a side of tangy salan, this vegetarian classic is both comforting and festive.",
+          "foodType": "veg",
+          "id": "-OQe8cjCr-Rjxm2xsqZ-",
+          "images": [
+            "https://res.cloudinary.com/dqaygduva/image/upload/v1747685106/cjx8y5l5f7ndi15yxzea.jpg",
+            "https://res.cloudinary.com/dqaygduva/image/upload/v1747685108/kgwgpkhgibq1g8j5i3tz.jpg",
+            "https://res.cloudinary.com/dqaygduva/image/upload/v1747685110/cllt9i7iljjm0tqrjpcx.jpg"
+          ],
+          "name": "Veg Biryani",
+          "price": 100,
+          "quantity": 1,
+          "thumbnail": "https://res.cloudinary.com/dqaygduva/image/upload/v1747685088/kgm3pcjnj1tgbixfdx7n.jpg"
+        }
+      ],
+      "orderId": "order_1747839313148_81ddpqjmp",
+      "paymentMethod": "online",
+      "paymentStatus": "paid",
+      "reviewed": true,
+      "sellerId": "0FJ7Lldia2YCyeMUFLgTwlEjPHN2",
+      "sellerName": "Beta Biryani",
+      "status": "completed",
+      "statusHistory": [
+        {
+          "note": "Waiting for payment verification",
+          "status": "pending_payment",
+          "timestamp": "2025-05-21T14:55:13.148Z"
+        },
+        {
+          "note": "Status updated by seller",
+          "status": "ready",
+          "timestamp": "2025-05-21T14:55:35.389Z"
+        },
+        {
+          "note": "Status updated by seller",
+          "status": "out_for_delivery",
+          "timestamp": "2025-05-21T14:55:38.457Z"
+        },
+        {
+          "note": "Status updated by seller",
+          "status": "completed",
+          "timestamp": "2025-05-21T14:55:43.498Z"
+        }
+      ],
+      "subtotal": 100,
+      "total": 100,
+      "updatedAt": "2025-05-21T14:55:43.498Z",
+      "userId": "b8Ip7qQR5WZjhe8Ag9tPlNm8qA52",
+      "userName": "Goodly",
+      "userPhone": "08077774326"
+    },
+    "order_1747839454017_ba3jcexvu": {
+      "couponApplied": false,
+      "createdAt": "2025-05-21T14:57:34.017Z",
+      "deliveryAddress": "Institute Of Technical Education Research ITER, Bhubaneswar ; Jagamohan Nagar, Khandagiri, Bhubaneswar, Odisha PIN Code - 751030",
+      "deliveryInstructions": "",
+      "discount": 0,
+      "items": [
+        {
+          "description": "A delightful medley of fresh vegetables like carrots, beans, peas, and potatoes, slow-cooked with long-grain basmati rice, aromatic spices, and a touch of saffron. Every spoonful offers a burst of flavor, balanced with subtle heat and traditional Indian herbs. Served with cool raita and a side of tangy salan, this vegetarian classic is both comforting and festive.",
+          "foodType": "veg",
+          "id": "-OQe8cjCr-Rjxm2xsqZ-",
+          "images": [
+            "https://res.cloudinary.com/dqaygduva/image/upload/v1747685106/cjx8y5l5f7ndi15yxzea.jpg",
+            "https://res.cloudinary.com/dqaygduva/image/upload/v1747685108/kgwgpkhgibq1g8j5i3tz.jpg",
+            "https://res.cloudinary.com/dqaygduva/image/upload/v1747685110/cllt9i7iljjm0tqrjpcx.jpg"
+          ],
+          "name": "Veg Biryani",
+          "price": 100,
+          "quantity": 1,
+          "thumbnail": "https://res.cloudinary.com/dqaygduva/image/upload/v1747685088/kgm3pcjnj1tgbixfdx7n.jpg"
+        }
+      ],
+      "orderId": "order_1747839454017_ba3jcexvu",
+      "paymentMethod": "online",
+      "sellerId": "0FJ7Lldia2YCyeMUFLgTwlEjPHN2",
+      "sellerName": "Beta Biryani",
+      "status": "pending_payment",
+      "statusHistory": [
+        {
+          "note": "Waiting for payment verification",
+          "status": "pending_payment",
+          "timestamp": "2025-05-21T14:57:34.017Z"
+        }
+      ],
+      "subtotal": 100,
+      "total": 100,
+      "updatedAt": "2025-05-21T14:57:34.017Z",
+      "userId": "b8Ip7qQR5WZjhe8Ag9tPlNm8qA52",
+      "userName": "Goodly",
+      "userPhone": "08077774326"
+    },
+    "order_1747839511344_m88yknq8l": {
+      "couponApplied": false,
+      "createdAt": "2025-05-21T14:58:31.345Z",
+      "deliveryAddress": "Institute Of Technical Education Research ITER, Bhubaneswar ; Jagamohan Nagar, Khandagiri, Bhubaneswar, Odisha PIN Code - 751030",
+      "deliveryInstructions": "",
+      "discount": 0,
+      "items": [
+        {
+          "description": "Tender, juicy chicken pieces marinated in a blend of yogurt, ginger, garlic, and traditional Indian spices, then layered with fragrant basmati rice and slow-cooked in the dum style. Infused with saffron, caramelized onions, and whole spices, this royal dish offers a perfect balance of flavor, aroma, and spice. Served hot with a side of raita and spicy salan for a complete, satisfying meal.",
+          "foodType": "non-veg",
+          "id": "-OQe9CiXYbX1pjRw1Hl3",
+          "images": [
+            "https://res.cloudinary.com/dqaygduva/image/upload/v1747685262/gd4zhr6wlrwvhzvbjz6v.jpg",
+            "https://res.cloudinary.com/dqaygduva/image/upload/v1747685263/hxpruuasyy85e3zsogor.jpg",
+            "https://res.cloudinary.com/dqaygduva/image/upload/v1747685264/hjzk1abgcq3bo8ewmjar.jpg"
+          ],
+          "name": "Non-Veg Biryani",
+          "price": 120,
+          "quantity": 2,
+          "thumbnail": "https://res.cloudinary.com/dqaygduva/image/upload/v1747685250/i1zsmln2uqqdfl5fqjtw.jpg"
+        }
+      ],
+      "orderId": "order_1747839511344_m88yknq8l",
+      "paymentMethod": "online",
+      "paymentStatus": "failed",
+      "sellerId": "0FJ7Lldia2YCyeMUFLgTwlEjPHN2",
+      "sellerName": "Beta Biryani",
+      "status": "cancelled",
+      "statusHistory": [
+        {
+          "note": "Waiting for payment verification",
+          "status": "pending_payment",
+          "timestamp": "2025-05-21T14:58:31.345Z"
+        }
+      ],
+      "subtotal": 240,
+      "total": 240,
+      "updatedAt": "2025-05-21T15:48:31.359Z",
+      "userId": "b8Ip7qQR5WZjhe8Ag9tPlNm8qA52",
+      "userName": "Goodly",
+      "userPhone": "08077774326"
+    },
+    "order_1747842603874_1rubqmz4t": {
+      "couponApplied": false,
+      "createdAt": "2025-05-21T15:50:03.874Z",
+      "deliveryAddress": "Institute Of Technical Education Research ITER, Bhubaneswar ; Jagamohan Nagar, Khandagiri, Bhubaneswar, Odisha PIN Code - 751030",
+      "deliveryInstructions": "",
+      "discount": 0,
+      "items": [
+        {
+          "description": "Welcome to Chole Bhature – Satish Hostel, your go-to destination for authentic, spicy, and soul-satisfying North Indian street food! Located right in the heart of Satish Hostel, we specialize in serving hot, fluffy bhature paired with deliciously spiced chole, made fresh every morning with traditional recipes passed down through generations.\n\nWhether you're craving a heavy breakfast, a filling lunch, or just looking to treat yourself to a comforting desi meal, we've got you covered. We also offer a selection of lassi, rajma-chawal, and other classic hostel favorites at student-friendly prices.\n\n💡 Perfect for:\n\nQuick hostel bites\n\nLate-morning brunches\n\nAffordable, filling meals",
+          "foodType": "veg",
+          "id": "-OQl_DvT2Hm1bMy2Qf1F",
+          "images": [
+            "https://res.cloudinary.com/dqaygduva/image/upload/v1747809777/v430qfuabxqlsjvmxaoe.jpg",
+            "https://res.cloudinary.com/dqaygduva/image/upload/v1747809778/c1a0morojh9nrg5nb5yb.jpg",
+            "https://res.cloudinary.com/dqaygduva/image/upload/v1747809779/gvrmog2qz0e7i485hthq.jpg",
+            "https://res.cloudinary.com/dqaygduva/image/upload/v1747809779/howrfskal7vsxbibx6f8.jpg"
+          ],
+          "name": "Cholle Bhature",
+          "price": 60,
+          "quantity": 1,
+          "thumbnail": "https://res.cloudinary.com/dqaygduva/image/upload/v1747809611/fjazm1pcudtlvcfau786.jpg"
+        }
+      ],
+      "orderId": "order_1747842603874_1rubqmz4t",
+      "paymentMethod": "cod",
+      "sellerId": "0FJ7Lldia2YCyeMUFLgTwlEjPHN2",
+      "sellerName": "Beta Biryani",
+      "status": "pending",
+      "statusHistory": [
+        {
+          "note": "Order placed",
+          "status": "pending",
+          "timestamp": "2025-05-21T15:50:03.874Z"
+        }
+      ],
+      "subtotal": 60,
+      "total": 60,
+      "updatedAt": "2025-05-21T15:50:03.874Z",
+      "userId": "GRvrXwKQT9NJhsgnDpgorMuWD5l2",
+      "userName": "Rakesh Kumar Raut",
+      "userPhone": "09040296572"
+    },
+    "order_1747842685175_ggxhk1hki": {
+      "couponApplied": false,
+      "createdAt": "2025-05-21T15:51:25.176Z",
+      "deliveryAddress": "Institute Of Technical Education Research ITER, Bhubaneswar ; Jagamohan Nagar, Khandagiri, Bhubaneswar, Odisha PIN Code - 751030",
+      "deliveryInstructions": "",
+      "discount": 0,
+      "items": [
+        {
+          "description": "Soft, succulent cubes of paneer marinated in rich spices and gently tossed with caramelized onions and fresh herbs. Layered with fragrant basmati rice and slow-cooked with saffron and whole spices to infuse every grain with flavor. This vegetarian delight is both hearty and aromatic, served with cooling raita and spicy biryani salan for a complete and satisfying experience.",
+          "foodType": "veg",
+          "id": "-OQicuGM1jOtiRDd7RJb",
+          "images": [
+            "https://res.cloudinary.com/dqaygduva/image/upload/v1747685631/itefekxmuq4t7uctibdu.jpg",
+            "https://res.cloudinary.com/dqaygduva/image/upload/v1747685631/bn9krcnbgiuoyuv5lo56.jpg",
+            "https://res.cloudinary.com/dqaygduva/image/upload/v1747685633/hka7aokvbfcslohjrsej.jpg"
+          ],
+          "name": "Paneer Biryani",
+          "price": 140,
+          "quantity": 1,
+          "thumbnail": "https://res.cloudinary.com/dqaygduva/image/upload/v1747685622/zbokkqhtioupaghl6odl.jpg"
+        }
+      ],
+      "orderId": "order_1747842685175_ggxhk1hki",
+      "paymentMethod": "online",
+      "paymentStatus": "failed",
+      "sellerId": "0FJ7Lldia2YCyeMUFLgTwlEjPHN2",
+      "sellerName": "Beta Biryani",
+      "status": "cancelled",
+      "statusHistory": [
+        {
+          "note": "Waiting for payment verification",
+          "status": "pending_payment",
+          "timestamp": "2025-05-21T15:51:25.176Z"
+        }
+      ],
+      "subtotal": 140,
+      "total": 140,
+      "updatedAt": "2025-05-21T15:54:53.251Z",
+      "userId": "GRvrXwKQT9NJhsgnDpgorMuWD5l2",
+      "userName": "Rakesh Kumar Raut",
+      "userPhone": "09040296572"
+    },
+    "order_1747842914607_6t97a498s": {
+      "couponApplied": false,
+      "createdAt": "2025-05-21T15:55:14.607Z",
+      "deliveryAddress": "Institute Of Technical Education Research ITER, Bhubaneswar ; Jagamohan Nagar, Khandagiri, Bhubaneswar, Odisha PIN Code - 751030",
+      "deliveryInstructions": "",
+      "discount": 0,
+      "items": [
+        {
+          "description": "Soft, succulent cubes of paneer marinated in rich spices and gently tossed with caramelized onions and fresh herbs. Layered with fragrant basmati rice and slow-cooked with saffron and whole spices to infuse every grain with flavor. This vegetarian delight is both hearty and aromatic, served with cooling raita and spicy biryani salan for a complete and satisfying experience.",
+          "foodType": "veg",
+          "id": "-OQicuGM1jOtiRDd7RJb",
+          "images": [
+            "https://res.cloudinary.com/dqaygduva/image/upload/v1747685631/itefekxmuq4t7uctibdu.jpg",
+            "https://res.cloudinary.com/dqaygduva/image/upload/v1747685631/bn9krcnbgiuoyuv5lo56.jpg",
+            "https://res.cloudinary.com/dqaygduva/image/upload/v1747685633/hka7aokvbfcslohjrsej.jpg"
+          ],
+          "name": "Paneer Biryani",
+          "price": 140,
+          "quantity": 1,
+          "thumbnail": "https://res.cloudinary.com/dqaygduva/image/upload/v1747685622/zbokkqhtioupaghl6odl.jpg"
+        }
+      ],
+      "orderId": "order_1747842914607_6t97a498s",
+      "paymentMethod": "online",
+      "paymentStatus": "paid",
+      "sellerId": "0FJ7Lldia2YCyeMUFLgTwlEjPHN2",
+      "sellerName": "Beta Biryani",
+      "status": "preparing",
+      "statusHistory": [
+        {
+          "note": "Waiting for payment verification",
+          "status": "pending_payment",
+          "timestamp": "2025-05-21T15:55:14.607Z"
+        }
+      ],
+      "subtotal": 140,
+      "total": 140,
+      "updatedAt": "2025-05-21T15:55:34.022Z",
+      "userId": "GRvrXwKQT9NJhsgnDpgorMuWD5l2",
+      "userName": "Rakesh Kumar Raut",
+      "userPhone": "09040296572"
+    },
+    "order_1747842953471_0dlnxrwym": {
+      "couponApplied": false,
+      "createdAt": "2025-05-21T15:55:53.471Z",
+      "deliveryAddress": "Institute Of Technical Education Research ITER, Bhubaneswar ; Jagamohan Nagar, Khandagiri, Bhubaneswar, Odisha PIN Code - 751030",
+      "deliveryInstructions": "",
+      "discount": 0,
+      "items": [
+        {
+          "description": "Tender, juicy chicken pieces marinated in a blend of yogurt, ginger, garlic, and traditional Indian spices, then layered with fragrant basmati rice and slow-cooked in the dum style. Infused with saffron, caramelized onions, and whole spices, this royal dish offers a perfect balance of flavor, aroma, and spice. Served hot with a side of raita and spicy salan for a complete, satisfying meal.",
+          "foodType": "non-veg",
+          "id": "-OQe9CiXYbX1pjRw1Hl3",
+          "images": [
+            "https://res.cloudinary.com/dqaygduva/image/upload/v1747685262/gd4zhr6wlrwvhzvbjz6v.jpg",
+            "https://res.cloudinary.com/dqaygduva/image/upload/v1747685263/hxpruuasyy85e3zsogor.jpg",
+            "https://res.cloudinary.com/dqaygduva/image/upload/v1747685264/hjzk1abgcq3bo8ewmjar.jpg"
+          ],
+          "name": "Non-Veg Biryani",
+          "price": 120,
+          "quantity": 1,
+          "thumbnail": "https://res.cloudinary.com/dqaygduva/image/upload/v1747685250/i1zsmln2uqqdfl5fqjtw.jpg"
+        }
+      ],
+      "orderId": "order_1747842953471_0dlnxrwym",
+      "paymentMethod": "online",
+      "paymentStatus": "failed",
+      "sellerId": "0FJ7Lldia2YCyeMUFLgTwlEjPHN2",
+      "sellerName": "Beta Biryani",
+      "status": "cancelled",
+      "statusHistory": [
+        {
+          "note": "Waiting for payment verification",
+          "status": "pending_payment",
+          "timestamp": "2025-05-21T15:55:53.471Z"
+        }
+      ],
+      "subtotal": 120,
+      "total": 120,
+      "updatedAt": "2025-05-21T15:56:06.065Z",
+      "userId": "GRvrXwKQT9NJhsgnDpgorMuWD5l2",
+      "userName": "Rakesh Kumar Raut",
+      "userPhone": "09040296572"
+    },
+    "order_1747842981520_8qbpovvfi": {
+      "couponApplied": false,
+      "createdAt": "2025-05-21T15:56:21.520Z",
+      "deliveryAddress": "Institute Of Technical Education Research ITER, Bhubaneswar ; Jagamohan Nagar, Khandagiri, Bhubaneswar, Odisha PIN Code - 751030",
+      "deliveryInstructions": "",
+      "discount": 0,
+      "items": [
+        {
+          "description": "Welcome to Chole Bhature – Satish Hostel, your go-to destination for authentic, spicy, and soul-satisfying North Indian street food! Located right in the heart of Satish Hostel, we specialize in serving hot, fluffy bhature paired with deliciously spiced chole, made fresh every morning with traditional recipes passed down through generations.\n\nWhether you're craving a heavy breakfast, a filling lunch, or just looking to treat yourself to a comforting desi meal, we've got you covered. We also offer a selection of lassi, rajma-chawal, and other classic hostel favorites at student-friendly prices.\n\n💡 Perfect for:\n\nQuick hostel bites\n\nLate-morning brunches\n\nAffordable, filling meals",
+          "foodType": "veg",
+          "id": "-OQl_DvT2Hm1bMy2Qf1F",
+          "images": [
+            "https://res.cloudinary.com/dqaygduva/image/upload/v1747809777/v430qfuabxqlsjvmxaoe.jpg",
+            "https://res.cloudinary.com/dqaygduva/image/upload/v1747809778/c1a0morojh9nrg5nb5yb.jpg",
+            "https://res.cloudinary.com/dqaygduva/image/upload/v1747809779/gvrmog2qz0e7i485hthq.jpg",
+            "https://res.cloudinary.com/dqaygduva/image/upload/v1747809779/howrfskal7vsxbibx6f8.jpg"
+          ],
+          "name": "Cholle Bhature",
+          "price": 60,
+          "quantity": 1,
+          "thumbnail": "https://res.cloudinary.com/dqaygduva/image/upload/v1747809611/fjazm1pcudtlvcfau786.jpg"
+        }
+      ],
+      "orderId": "order_1747842981520_8qbpovvfi",
+      "paymentMethod": "online",
+      "sellerId": "vuRLXm9BlSViNh2kYSaWEVx9Jir1",
+      "sellerName": "Satish Biryani",
+      "status": "pending_payment",
+      "statusHistory": [
+        {
+          "note": "Waiting for payment verification",
+          "status": "pending_payment",
+          "timestamp": "2025-05-21T15:56:21.520Z"
+        }
+      ],
+      "subtotal": 60,
+      "total": 60,
+      "updatedAt": "2025-05-21T15:56:21.520Z",
+      "userId": "GRvrXwKQT9NJhsgnDpgorMuWD5l2",
+      "userName": "Rakesh Kumar Raut",
+      "userPhone": "09040296572"
+    },
+    "order_1747842995963_f7su07ijp": {
+      "couponApplied": false,
+      "createdAt": "2025-05-21T15:56:35.964Z",
+      "deliveryAddress": "Institute Of Technical Education Research ITER, Bhubaneswar ; Jagamohan Nagar, Khandagiri, Bhubaneswar, Odisha PIN Code - 751030",
+      "deliveryInstructions": "",
+      "discount": 0,
+      "items": [
+        {
+          "description": "Tender, juicy chicken pieces marinated in a blend of yogurt, ginger, garlic, and traditional Indian spices, then layered with fragrant basmati rice and slow-cooked in the dum style. Infused with saffron, caramelized onions, and whole spices, this royal dish offers a perfect balance of flavor, aroma, and spice. Served hot with a side of raita and spicy salan for a complete, satisfying meal.",
+          "foodType": "non-veg",
+          "id": "-OQe9CiXYbX1pjRw1Hl3",
+          "images": [
+            "https://res.cloudinary.com/dqaygduva/image/upload/v1747685262/gd4zhr6wlrwvhzvbjz6v.jpg",
+            "https://res.cloudinary.com/dqaygduva/image/upload/v1747685263/hxpruuasyy85e3zsogor.jpg",
+            "https://res.cloudinary.com/dqaygduva/image/upload/v1747685264/hjzk1abgcq3bo8ewmjar.jpg"
+          ],
+          "name": "Non-Veg Biryani",
+          "price": 120,
+          "quantity": 1,
+          "thumbnail": "https://res.cloudinary.com/dqaygduva/image/upload/v1747685250/i1zsmln2uqqdfl5fqjtw.jpg"
+        }
+      ],
+      "orderId": "order_1747842995963_f7su07ijp",
+      "paymentMethod": "online",
+      "paymentStatus": "paid",
+      "sellerId": "0FJ7Lldia2YCyeMUFLgTwlEjPHN2",
+      "sellerName": "Beta Biryani",
+      "status": "preparing",
+      "statusHistory": [
+        {
+          "note": "Waiting for payment verification",
+          "status": "pending_payment",
+          "timestamp": "2025-05-21T15:56:35.964Z"
+        }
+      ],
+      "subtotal": 120,
+      "total": 120,
+      "updatedAt": "2025-05-21T15:56:35.964Z",
+      "userId": "GRvrXwKQT9NJhsgnDpgorMuWD5l2",
+      "userName": "Rakesh Kumar Raut",
+      "userPhone": "09040296572"
+    },
+    "order_1747843051177_94ds9ofrb": {
+      "couponApplied": false,
+      "createdAt": "2025-05-21T15:57:31.177Z",
+      "deliveryAddress": "Institute Of Technical Education Research ITER, Bhubaneswar ; Jagamohan Nagar, Khandagiri, Bhubaneswar, Odisha PIN Code - 751030",
+      "deliveryInstructions": "",
+      "discount": 0,
+      "items": [
+        {
+          "description": "A delightful medley of fresh vegetables like carrots, beans, peas, and potatoes, slow-cooked with long-grain basmati rice, aromatic spices, and a touch of saffron. Every spoonful offers a burst of flavor, balanced with subtle heat and traditional Indian herbs. Served with cool raita and a side of tangy salan, this vegetarian classic is both comforting and festive.",
+          "foodType": "veg",
+          "id": "-OQe8cjCr-Rjxm2xsqZ-",
+          "images": [
+            "https://res.cloudinary.com/dqaygduva/image/upload/v1747685106/cjx8y5l5f7ndi15yxzea.jpg",
+            "https://res.cloudinary.com/dqaygduva/image/upload/v1747685108/kgwgpkhgibq1g8j5i3tz.jpg",
+            "https://res.cloudinary.com/dqaygduva/image/upload/v1747685110/cllt9i7iljjm0tqrjpcx.jpg"
+          ],
+          "name": "Veg Biryani",
+          "price": 100,
+          "quantity": 1,
+          "thumbnail": "https://res.cloudinary.com/dqaygduva/image/upload/v1747685088/kgm3pcjnj1tgbixfdx7n.jpg"
+        },
+        {
+          "description": "Welcome to Chole Bhature – Satish Hostel, your go-to destination for authentic, spicy, and soul-satisfying North Indian street food! Located right in the heart of Satish Hostel, we specialize in serving hot, fluffy bhature paired with deliciously spiced chole, made fresh every morning with traditional recipes passed down through generations.\n\nWhether you're craving a heavy breakfast, a filling lunch, or just looking to treat yourself to a comforting desi meal, we've got you covered. We also offer a selection of lassi, rajma-chawal, and other classic hostel favorites at student-friendly prices.\n\n💡 Perfect for:\n\nQuick hostel bites\n\nLate-morning brunches\n\nAffordable, filling meals",
+          "foodType": "veg",
+          "id": "-OQl_DvT2Hm1bMy2Qf1F",
+          "images": [
+            "https://res.cloudinary.com/dqaygduva/image/upload/v1747809777/v430qfuabxqlsjvmxaoe.jpg",
+            "https://res.cloudinary.com/dqaygduva/image/upload/v1747809778/c1a0morojh9nrg5nb5yb.jpg",
+            "https://res.cloudinary.com/dqaygduva/image/upload/v1747809779/gvrmog2qz0e7i485hthq.jpg",
+            "https://res.cloudinary.com/dqaygduva/image/upload/v1747809779/howrfskal7vsxbibx6f8.jpg"
+          ],
+          "name": "Cholle Bhature",
+          "price": 60,
+          "quantity": 1,
+          "thumbnail": "https://res.cloudinary.com/dqaygduva/image/upload/v1747809611/fjazm1pcudtlvcfau786.jpg"
+        }
+      ],
+      "orderId": "order_1747843051177_94ds9ofrb",
+      "paymentMethod": "online",
+      "paymentStatus": "paid",
+      "sellerId": "0FJ7Lldia2YCyeMUFLgTwlEjPHN2",
+      "sellerName": "Beta Biryani",
+      "status": "preparing",
+      "statusHistory": [
+        {
+          "note": "Waiting for payment verification",
+          "status": "pending_payment",
+          "timestamp": "2025-05-21T15:57:31.177Z"
+        }
+      ],
+      "subtotal": 160,
+      "total": 160,
+      "updatedAt": "2025-05-21T15:57:31.177Z",
+      "userId": "GRvrXwKQT9NJhsgnDpgorMuWD5l2",
+      "userName": "Rakesh Kumar Raut",
+      "userPhone": "09040296572"
+    },
+    "order_1747849130129_m63fypaxz": {
+      "couponApplied": false,
+      "createdAt": "2025-05-21T17:38:50.129Z",
+      "deliveryAddress": "Institute Of Technical Education Research ITER, Bhubaneswar ; Jagamohan Nagar, Khandagiri, Bhubaneswar, Odisha PIN Code - 751030",
+      "deliveryInstructions": "",
+      "deliveryPerson": "RITESH",
+      "deliveryPersonPhone": "8989898989",
+      "discount": 0,
+      "estimatedDeliveryTime": "2025-05-20T20:41:00.000Z",
+      "items": [
+        {
+          "description": "A delightful medley of fresh vegetables like carrots, beans, peas, and potatoes, slow-cooked with long-grain basmati rice, aromatic spices, and a touch of saffron. Every spoonful offers a burst of flavor, balanced with subtle heat and traditional Indian herbs. Served with cool raita and a side of tangy salan, this vegetarian classic is both comforting and festive.",
+          "foodType": "veg",
+          "id": "-OQe8cjCr-Rjxm2xsqZ-",
+          "images": [
+            "https://res.cloudinary.com/dqaygduva/image/upload/v1747685106/cjx8y5l5f7ndi15yxzea.jpg",
+            "https://res.cloudinary.com/dqaygduva/image/upload/v1747685108/kgwgpkhgibq1g8j5i3tz.jpg",
+            "https://res.cloudinary.com/dqaygduva/image/upload/v1747685110/cllt9i7iljjm0tqrjpcx.jpg"
+          ],
+          "name": "Veg Biryani",
+          "price": 100,
+          "quantity": 2,
+          "thumbnail": "https://res.cloudinary.com/dqaygduva/image/upload/v1747685088/kgm3pcjnj1tgbixfdx7n.jpg"
+        },
+        {
+          "description": "Tender, juicy chicken pieces marinated in a blend of yogurt, ginger, garlic, and traditional Indian spices, then layered with fragrant basmati rice and slow-cooked in the dum style. Infused with saffron, caramelized onions, and whole spices, this royal dish offers a perfect balance of flavor, aroma, and spice. Served hot with a side of raita and spicy salan for a complete, satisfying meal.",
+          "foodType": "non-veg",
+          "id": "-OQe9CiXYbX1pjRw1Hl3",
+          "images": [
+            "https://res.cloudinary.com/dqaygduva/image/upload/v1747685262/gd4zhr6wlrwvhzvbjz6v.jpg",
+            "https://res.cloudinary.com/dqaygduva/image/upload/v1747685263/hxpruuasyy85e3zsogor.jpg",
+            "https://res.cloudinary.com/dqaygduva/image/upload/v1747685264/hjzk1abgcq3bo8ewmjar.jpg"
+          ],
+          "name": "Non-Veg Biryani",
+          "price": 120,
+          "quantity": 1,
+          "thumbnail": "https://res.cloudinary.com/dqaygduva/image/upload/v1747685250/i1zsmln2uqqdfl5fqjtw.jpg"
+        }
+      ],
+      "orderId": "order_1747849130129_m63fypaxz",
+      "paymentMethod": "cod",
+      "reviewed": true,
+      "sellerId": "0FJ7Lldia2YCyeMUFLgTwlEjPHN2",
+      "sellerName": "Beta Biryani",
+      "status": "completed",
+      "statusHistory": [
+        {
+          "note": "Order placed",
+          "status": "pending",
+          "timestamp": "2025-05-21T17:38:50.129Z"
+        },
+        {
+          "note": "Status updated by seller",
+          "status": "preparing",
+          "timestamp": "2025-05-21T17:39:39.403Z"
+        },
+        {
+          "note": "Status updated by seller",
+          "status": "ready",
+          "timestamp": "2025-05-21T17:39:44.844Z"
+        },
+        {
+          "note": "Assigned to delivery person: RITESH",
+          "status": "out_for_delivery",
+          "timestamp": "2025-05-21T17:41:08.262Z"
+        },
+        {
+          "note": "Status updated by seller",
+          "status": "completed",
+          "timestamp": "2025-05-21T17:41:18.675Z"
+        }
+      ],
+      "subtotal": 320,
+      "total": 320,
+      "updatedAt": "2025-05-21T17:41:18.675Z",
+      "userId": "GRvrXwKQT9NJhsgnDpgorMuWD5l2",
+      "userName": "Rakesh Kumar Raut",
+      "userPhone": "09040296572"
+    },
+    "order_1747849433736_2h589z09b": {
+      "couponApplied": true,
+      "couponCode": "SUMMER30",
+      "createdAt": "2025-05-21T17:43:53.736Z",
+      "deliveryAddress": "Institute Of Technical Education Research ITER, Bhubaneswar ; Jagamohan Nagar, Khandagiri, Bhubaneswar, Odisha PIN Code - 751030",
+      "deliveryInstructions": "",
+      "discount": 30,
+      "items": [
+        {
+          "description": "A delightful medley of fresh vegetables like carrots, beans, peas, and potatoes, slow-cooked with long-grain basmati rice, aromatic spices, and a touch of saffron. Every spoonful offers a burst of flavor, balanced with subtle heat and traditional Indian herbs. Served with cool raita and a side of tangy salan, this vegetarian classic is both comforting and festive.",
+          "foodType": "veg",
+          "id": "-OQe8cjCr-Rjxm2xsqZ-",
+          "images": [
+            "https://res.cloudinary.com/dqaygduva/image/upload/v1747685106/cjx8y5l5f7ndi15yxzea.jpg",
+            "https://res.cloudinary.com/dqaygduva/image/upload/v1747685108/kgwgpkhgibq1g8j5i3tz.jpg",
+            "https://res.cloudinary.com/dqaygduva/image/upload/v1747685110/cllt9i7iljjm0tqrjpcx.jpg"
+          ],
+          "name": "Veg Biryani",
+          "price": 100,
+          "quantity": 1,
+          "thumbnail": "https://res.cloudinary.com/dqaygduva/image/upload/v1747685088/kgm3pcjnj1tgbixfdx7n.jpg"
+        }
+      ],
+      "orderId": "order_1747849433736_2h589z09b",
+      "paymentMethod": "online",
+      "paymentStatus": "paid",
+      "sellerId": "0FJ7Lldia2YCyeMUFLgTwlEjPHN2",
+      "sellerName": "Beta Biryani",
+      "status": "completed",
+      "statusHistory": [
+        {
+          "note": "Waiting for payment verification",
+          "status": "pending_payment",
+          "timestamp": "2025-05-21T17:43:53.736Z"
+        },
+        {
+          "note": "Status updated by seller",
+          "status": "ready",
+          "timestamp": "2025-05-21T17:45:20.045Z"
+        },
+        {
+          "note": "Status updated by seller",
+          "status": "out_for_delivery",
+          "timestamp": "2025-05-21T17:45:24.087Z"
+        },
+        {
+          "note": "Status updated by seller",
+          "status": "completed",
+          "timestamp": "2025-05-21T17:45:28.199Z"
+        }
+      ],
+      "subtotal": 100,
+      "total": 70,
+      "updatedAt": "2025-05-21T17:45:28.199Z",
+      "userId": "GRvrXwKQT9NJhsgnDpgorMuWD5l2",
+      "userName": "Rakesh Kumar Raut",
+      "userPhone": "09040296572"
+    },
+    "order_1747850012628_telmfwpyc": {
+      "couponApplied": false,
+      "createdAt": "2025-05-21T17:53:32.628Z",
+      "deliveryAddress": "near ITER BH12 ",
+      "deliveryInstructions": "",
+      "discount": 0,
+      "items": [
+        {
+          "description": "A delightful medley of fresh vegetables like carrots, beans, peas, and potatoes, slow-cooked with long-grain basmati rice, aromatic spices, and a touch of saffron. Every spoonful offers a burst of flavor, balanced with subtle heat and traditional Indian herbs. Served with cool raita and a side of tangy salan, this vegetarian classic is both comforting and festive.",
+          "foodType": "veg",
+          "id": "-OQe8cjCr-Rjxm2xsqZ-",
+          "images": [
+            "https://res.cloudinary.com/dqaygduva/image/upload/v1747685106/cjx8y5l5f7ndi15yxzea.jpg",
+            "https://res.cloudinary.com/dqaygduva/image/upload/v1747685108/kgwgpkhgibq1g8j5i3tz.jpg",
+            "https://res.cloudinary.com/dqaygduva/image/upload/v1747685110/cllt9i7iljjm0tqrjpcx.jpg"
+          ],
+          "name": "Veg Biryani",
+          "price": 100,
+          "quantity": 1,
+          "thumbnail": "https://res.cloudinary.com/dqaygduva/image/upload/v1747685088/kgm3pcjnj1tgbixfdx7n.jpg"
+        }
+      ],
+      "orderId": "order_1747850012628_telmfwpyc",
+      "paymentMethod": "cod",
+      "sellerId": "0FJ7Lldia2YCyeMUFLgTwlEjPHN2",
+      "sellerName": "Beta Biryani",
+      "status": "pending",
+      "statusHistory": [
+        {
+          "note": "Order placed",
+          "status": "pending",
+          "timestamp": "2025-05-21T17:53:32.628Z"
+        }
+      ],
+      "subtotal": 100,
+      "total": 100,
+      "updatedAt": "2025-05-21T17:53:32.628Z",
+      "userId": "PKKbofIT1icTjvGPs2653mZAx4i2",
+      "userName": "Goodly Pradhan",
+      "userPhone": "8056224952"
+    },
+    "order_1747851239390_et501af0y": {
+      "couponApplied": false,
+      "createdAt": "2025-05-21T18:13:59.390Z",
+      "deliveryAddress": "Institute Of Technical Education Research ITER, Bhubaneswar ; Jagamohan Nagar, Khandagiri, Bhubaneswar, Odisha PIN Code - 751030",
+      "deliveryInstructions": "",
+      "discount": 0,
+      "items": [
+        {
+          "description": "A delightful medley of fresh vegetables like carrots, beans, peas, and potatoes, slow-cooked with long-grain basmati rice, aromatic spices, and a touch of saffron. Every spoonful offers a burst of flavor, balanced with subtle heat and traditional Indian herbs. Served with cool raita and a side of tangy salan, this vegetarian classic is both comforting and festive.",
+          "foodType": "veg",
+          "id": "-OQe8cjCr-Rjxm2xsqZ-",
+          "images": [
+            "https://res.cloudinary.com/dqaygduva/image/upload/v1747685106/cjx8y5l5f7ndi15yxzea.jpg",
+            "https://res.cloudinary.com/dqaygduva/image/upload/v1747685108/kgwgpkhgibq1g8j5i3tz.jpg",
+            "https://res.cloudinary.com/dqaygduva/image/upload/v1747685110/cllt9i7iljjm0tqrjpcx.jpg"
+          ],
+          "name": "Veg Biryani",
+          "price": 100,
+          "quantity": 1,
+          "thumbnail": "https://res.cloudinary.com/dqaygduva/image/upload/v1747685088/kgm3pcjnj1tgbixfdx7n.jpg"
+        }
+      ],
+      "orderId": "order_1747851239390_et501af0y",
+      "paymentMethod": "online",
+      "sellerId": "0FJ7Lldia2YCyeMUFLgTwlEjPHN2",
+      "sellerName": "Beta Biryani",
+      "status": "pending_payment",
+      "statusHistory": [
+        {
+          "note": "Waiting for payment verification",
+          "status": "pending_payment",
+          "timestamp": "2025-05-21T18:13:59.390Z"
+        }
+      ],
+      "subtotal": 100,
+      "total": 100,
+      "updatedAt": "2025-05-21T18:13:59.390Z",
+      "userId": "GRvrXwKQT9NJhsgnDpgorMuWD5l2",
+      "userName": "Rakesh Kumar Raut",
+      "userPhone": "09040296572"
+    },
+    "order_1747851249104_28ilihmsq": {
+      "couponApplied": false,
+      "createdAt": "2025-05-21T18:14:09.105Z",
+      "deliveryAddress": "Institute Of Technical Education Research ITER, Bhubaneswar ; Jagamohan Nagar, Khandagiri, Bhubaneswar, Odisha PIN Code - 751030",
+      "deliveryInstructions": "",
+      "discount": 0,
+      "items": [
+        {
+          "description": "A delightful medley of fresh vegetables like carrots, beans, peas, and potatoes, slow-cooked with long-grain basmati rice, aromatic spices, and a touch of saffron. Every spoonful offers a burst of flavor, balanced with subtle heat and traditional Indian herbs. Served with cool raita and a side of tangy salan, this vegetarian classic is both comforting and festive.",
+          "foodType": "veg",
+          "id": "-OQe8cjCr-Rjxm2xsqZ-",
+          "images": [
+            "https://res.cloudinary.com/dqaygduva/image/upload/v1747685106/cjx8y5l5f7ndi15yxzea.jpg",
+            "https://res.cloudinary.com/dqaygduva/image/upload/v1747685108/kgwgpkhgibq1g8j5i3tz.jpg",
+            "https://res.cloudinary.com/dqaygduva/image/upload/v1747685110/cllt9i7iljjm0tqrjpcx.jpg"
+          ],
+          "name": "Veg Biryani",
+          "price": 100,
+          "quantity": 1,
+          "thumbnail": "https://res.cloudinary.com/dqaygduva/image/upload/v1747685088/kgm3pcjnj1tgbixfdx7n.jpg"
+        }
+      ],
+      "orderId": "order_1747851249104_28ilihmsq",
+      "paymentMethod": "online",
+      "paymentStatus": "paid",
+      "sellerId": "0FJ7Lldia2YCyeMUFLgTwlEjPHN2",
+      "sellerName": "Beta Biryani",
+      "status": "preparing",
+      "statusHistory": [
+        {
+          "note": "Waiting for payment verification",
+          "status": "pending_payment",
+          "timestamp": "2025-05-21T18:14:09.105Z"
+        }
+      ],
+      "subtotal": 100,
+      "total": 100,
+      "updatedAt": "2025-05-21T18:14:09.105Z",
+      "userId": "GRvrXwKQT9NJhsgnDpgorMuWD5l2",
+      "userName": "Rakesh Kumar Raut",
+      "userPhone": "09040296572"
+    }
+  },
+  "payment_requests": {
+    "order_1747851239390_et501af0y": {
+      "amount": 100,
+      "method": "online",
+      "orderId": "order_1747851239390_et501af0y",
+      "sellerId": "0FJ7Lldia2YCyeMUFLgTwlEjPHN2",
+      "sellerName": "Beta Biryani",
+      "status": "rejected",
+      "timestamp": "2025-05-21T18:13:59.810Z",
+      "userId": "GRvrXwKQT9NJhsgnDpgorMuWD5l2",
+      "userName": "Rakesh Kumar Raut",
+      "verifiedAt": "2025-05-21T18:14:19.674Z"
+    },
+    "order_1747851249104_28ilihmsq": {
+      "amount": 100,
+      "method": "online",
+      "orderId": "order_1747851249104_28ilihmsq",
+      "sellerId": "0FJ7Lldia2YCyeMUFLgTwlEjPHN2",
+      "sellerName": "Beta Biryani",
+      "status": "verified",
+      "timestamp": "2025-05-21T18:14:09.421Z",
+      "userId": "GRvrXwKQT9NJhsgnDpgorMuWD5l2",
+      "userName": "Rakesh Kumar Raut",
+      "verifiedAt": "2025-05-21T18:14:13.708Z"
+    }
+  },
+  "reviews": {
+    "0FJ7Lldia2YCyeMUFLgTwlEjPHN2": {
+      "-OQfqMQWHb9gTFYlHp1v": {
+        "comment": "Very tasty biryani",
+        "createdAt": "2025-05-20T04:00:19.633Z",
+        "rating": 5,
+        "repliedAt": "2025-05-20T04:15:48.567Z",
+        "reply": "thanks"
+      },
+      "-OQgk9FejEbubdo0oMGR": {
+        "comment": "Add more raita . Quantity is very less",
+        "createdAt": "2025-05-20T08:12:49.969Z",
+        "rating": 4
+      },
+      "-OQgvdJrApEq22QI4cYg": {
+        "comment": "SO much tasty",
+        "createdAt": "2025-05-20T09:03:00.797Z",
+        "orderId": "-OQguKwkmxOGdzQHQ76s",
+        "rating": 4
+      },
+      "-OQh1tM5NFOMno5pkExw": {
+        "comment": "Very tasty",
+        "createdAt": "2025-05-20T09:34:41.501Z",
+        "orderId": "-OQgyj3XexVf3XcJjY65",
+        "rating": 5
+      },
+      "-OQhlWQ49Cj98dDSdaGB": {
+        "comment": "vERY TASTY",
+        "createdAt": "2025-05-20T12:58:24.204Z",
+        "orderId": "order_1747745822160_3euil1617",
+        "rating": 4,
+        "repliedAt": "2025-05-20T13:03:48.724Z",
+        "reply": "THANKS"
+      },
+      "-OQiE758tgR2N6EKWKZy": {
+        "comment": "GOOD",
+        "createdAt": "2025-05-20T15:07:44.787Z",
+        "orderId": "order_1747753583372_geu65g528",
+        "rating": 5
+      },
+      "-OQiFdMNp68dixUSYpj5": {
+        "comment": "GUF GUD",
+        "createdAt": "2025-05-20T15:14:23.203Z",
+        "orderId": "order_1747753970967_nmwo48fi5",
+        "rating": 5,
+        "repliedAt": "2025-05-20T15:14:36.837Z",
+        "reply": "THANKS"
+      },
+      "-OQiaXwKnPhtuCc1pGRy": {
+        "comment": "gud gud",
+        "createdAt": "2025-05-20T16:50:04.176Z",
+        "orderId": "order_1747759748451_ukuzqmvp8",
+        "rating": 5
+      },
+      "-OQiaYCY1tQB4S_FKMat": {
+        "comment": "gud gud",
+        "createdAt": "2025-05-20T16:50:05.279Z",
+        "orderId": "order_1747759748451_ukuzqmvp8",
+        "rating": 5,
+        "repliedAt": "2025-05-20T16:50:28.027Z",
+        "reply": "thanks thanks"
+      },
+      "-OQl66WCYep4tU1h3m8q": {
+        "comment": "SDASYDROASDUGs",
+        "createdAt": "2025-05-21T04:31:36.287Z",
+        "orderId": "order_1747801764283_uw2lncef7",
+        "rating": 5,
+        "repliedAt": "2025-05-21T04:32:04.744Z",
+        "reply": "dfsdfs"
+      },
+      "-OQlIgAv_AlYG6ZlsLQW": {
+        "comment": "jchjvh",
+        "createdAt": "2025-05-21T05:26:32.156Z",
+        "orderId": "order_1747805131324_54kvmzo7r",
+        "rating": 4
+      },
+      "-OQlIl6X14Uu4b7vbILI": {
+        "comment": "bchj",
+        "createdAt": "2025-05-21T05:26:52.355Z",
+        "orderId": "order_1747805131324_54kvmzo7r",
+        "rating": 4
+      },
+      "-OQlSNwRaZvDMb8w2MRv": {
+        "comment": "good buryani",
+        "createdAt": "2025-05-21T06:08:54.760Z",
+        "orderId": "order_1747807628360_ya2hcu4da",
+        "rating": 5,
+        "repliedAt": "2025-05-21T06:11:39.885Z",
+        "reply": "thanks"
+      },
+      "-OQn7PfITzpodJJBivJV": {
+        "comment": "MAUW",
+        "createdAt": "2025-05-21T13:56:31.370Z",
+        "orderId": "order_1747835640914_4gjugbjgy",
+        "rating": 5
+      },
+      "-OQnAEXDFIXRvwP4M9Qy": {
+        "comment": "MAWWW",
+        "createdAt": "2025-05-21T14:08:52.127Z",
+        "orderId": "order_1747835640914_4gjugbjgy",
+        "rating": 5
+      },
+      "-OQnEl02zkJ2bSTN8C_S": {
+        "comment": "MEOW",
+        "createdAt": "2025-05-21T14:28:37.939Z",
+        "orderId": "order_1747837320493_wvknza4f5",
+        "rating": 5,
+        "repliedAt": "2025-05-21T14:29:59.545Z",
+        "reply": "THANKS"
+      },
+      "-OQnFiMNfb5iAiD1iUW1": {
+        "comment": "KONKUDU",
+        "createdAt": "2025-05-21T14:32:49.136Z",
+        "orderId": "order_1747837882878_auh5az7xo",
+        "rating": 4
+      },
+      "-OQnL1O_d0oMbzXOvL3j": {
+        "comment": "VERY TASTY",
+        "createdAt": "2025-05-21T14:56:02.004Z",
+        "orderId": "order_1747839313148_81ddpqjmp",
+        "rating": 5
+      },
+      "-OQnvy2s2IgGwYm_5pb0": {
+        "comment": "Very good quality food",
+        "createdAt": "2025-05-21T17:41:51.237Z",
+        "orderId": "order_1747849130129_m63fypaxz",
+        "rating": 4,
+        "repliedAt": "2025-05-21T17:42:20.290Z",
+        "reply": "Thanks"
+      },
+      "undefined": {
+        "repliedAt": "2025-05-21T17:42:19.948Z",
+        "reply": "Thanks"
+      }
+    },
+    "vuRLXm9BlSViNh2kYSaWEVx9Jir1": {
+      "-OQlcIOyVOZpckx5fiWO": {
+        "comment": "IT WAS GOOD",
+        "createdAt": "2025-05-21T06:56:35.649Z",
+        "orderId": "order_1747810516715_nyq6xu9vr",
+        "rating": 4,
+        "repliedAt": "2025-05-21T08:26:34.523Z",
+        "reply": "thanks1"
+      }
+    }
+  },
+  "sellers": {
+    "0FJ7Lldia2YCyeMUFLgTwlEjPHN2": {
+      "address": "Plot No. 145, 1st Floor, Kalinga Complex Jaydev Vihar, Near Pal Heights Mall Bhubaneswar, Odisha – 751013 ",
+      "closingTime": "21:00",
+      "cuisine": "Indian",
+      "description": "At Beta Biryani, we don’t just serve food — we serve stories layered in flavor. Specializing in mouthwatering biryanis crafted with age-old recipes and a modern twist, every dish is a celebration of spice, aroma, and satisfaction. Whether you're in the mood for a royal Hyderabadi Dum Biryani, a soulful Veg Biryani, or our signature Paneer and Chicken varieties, we've got a plate for every craving. Freshly prepared, hygienically packed, and delivered with love — because at Beta Biryani, your next favorite biryani is just an order away!",
+      "name": "Beta Biryani",
+      "openingTime": "09:00",
+      "phone": "+91-9876543210",
+      "photoURL": "https://res.cloudinary.com/dqaygduva/image/upload/v1747712972/gnsscjwhuzitqqkhbyz5.png",
+      "rating": 4.611111111111111,
+      "totalOrders": 13,
+      "totalRatings": 18,
+      "totalRevenue": 490,
+      "updatedAt": "2025-05-21T18:14:17.866Z"
+    },
+    "GRvrXwKQT9NJhsgnDpgorMuWD5l2": {
+      "address": "Plot No. 145, 1st Floor, Kalinga Complex Jaydev Vihar, Near Pal Heights Mall Bhubaneswar, Odisha – 751013 ",
+      "createdAt": "2025-05-20T03:52:18.560Z",
+      "cuisine": "Indian",
+      "description": "At Beta Biryani, we don’t just serve food — we serve stories layered in flavor. Specializing in mouthwatering biryanis crafted with age-old recipes and a modern twist, every dish is a celebration of spice, aroma, and satisfaction. Whether you're in the mood for a royal Hyderabadi Dum Biryani, a soulful Veg Biryani, or our signature Paneer and Chicken varieties, we've got a plate for every craving. Freshly prepared, hygienically packed, and delivered with love — because at Beta Biryani, your next favorite biryani is just an order away!",
+      "name": "Beta Biryani",
+      "openingHours": "9:00 AM- 9:00 PM",
+      "phone": "+91-9876543210",
+      "photoURL": "https://res.cloudinary.com/dqaygduva/image/upload/v1747712972/gnsscjwhuzitqqkhbyz5.png",
+      "rating": 0,
+      "totalOrders": 0,
+      "totalRatings": 0,
+      "totalRevenue": 0,
+      "updatedAt": "2025-05-21T04:15:26.501Z"
+    },
+    "RNTULKHgiNUDmhlqgLQzpYfy3X92": {
+      "createdAt": "2025-05-20T17:29:04.349Z",
+      "email": "bhaluvariant1@gmail.com",
+      "role": "seller",
+      "totalOrders": 0,
+      "totalRevenue": 0,
+      "updatedAt": "2025-05-20T17:29:18.582Z"
+    },
+    "vuRLXm9BlSViNh2kYSaWEVx9Jir1": {
+      "address": "Near Iter",
+      "closingTime": "16:18",
+      "createdAt": "2025-05-21T05:48:41.126Z",
+      "cuisine": "Indian",
+      "description": "Hotel Satish Biryani is a beloved destination for authentic Indian cuisine, renowned especially for its flavorful and aromatic biryanis. Located in the heart of the city, the restaurant offers a rich culinary experience with a menu that celebrates the diversity of Indian flavors. From the spicy depths of Hyderabadi biryani to the delicate warmth of North Indian curries, every dish is crafted with traditional spices and home-style cooking. Whether you're in the mood for a hearty meal or a quick bite, Hotel Satish Biryani serves up delicious comfort food in a welcoming and casual setting. Perfect for families, food lovers, and anyone craving real Indian taste.",
+      "name": "Satish Biryani",
+      "openingTime": "11:21",
+      "phone": "9078583902",
+      "photoURL": "https://res.cloudinary.com/dqaygduva/image/upload/v1747806458/xsij58uk2sjimdskxuae.jpg",
+      "rating": 4,
+      "totalOrders": 1,
+      "totalRatings": 1,
+      "totalRevenue": 0,
+      "updatedAt": "2025-05-21T18:12:43.823Z"
+    }
+  },
+  "typing": {
+    "order_1747805131324_54kvmzo7r": {
+      "isTyping": false,
+      "timestamp": "2025-05-21T05:25:51.696Z",
+      "userId": "GRvrXwKQT9NJhsgnDpgorMuWD5l2"
+    },
+    "order_1747806987854_zcxf6sr1y": {
+      "isTyping": false,
+      "timestamp": "2025-05-21T08:35:19.821Z",
+      "userId": "GRvrXwKQT9NJhsgnDpgorMuWD5l2"
+    },
+    "order_1747810516715_nyq6xu9vr": {
+      "isTyping": false,
+      "timestamp": "2025-05-21T06:56:10.136Z",
+      "userId": "GRvrXwKQT9NJhsgnDpgorMuWD5l2"
+    },
+    "order_1747835635566_76yh2tg3x": {
+      "isTyping": false,
+      "timestamp": "2025-05-21T14:21:13.435Z",
+      "userId": "b8Ip7qQR5WZjhe8Ag9tPlNm8qA52"
+    },
+    "order_1747835640914_4gjugbjgy": {
+      "isTyping": false,
+      "timestamp": "2025-05-21T13:54:38.983Z",
+      "userId": "b8Ip7qQR5WZjhe8Ag9tPlNm8qA52"
+    },
+    "order_1747837320493_wvknza4f5": {
+      "isTyping": false,
+      "timestamp": "2025-05-21T14:22:15.954Z",
+      "userId": "b8Ip7qQR5WZjhe8Ag9tPlNm8qA52"
+    },
+    "order_1747837882878_auh5az7xo": {
+      "isTyping": false,
+      "timestamp": "2025-05-21T14:31:46.038Z",
+      "userId": "b8Ip7qQR5WZjhe8Ag9tPlNm8qA52"
+    },
+    "order_1747849130129_m63fypaxz": {
+      "isTyping": false,
+      "timestamp": "2025-05-21T17:39:29.176Z",
+      "userId": "GRvrXwKQT9NJhsgnDpgorMuWD5l2"
+    },
+    "order_1747850012628_telmfwpyc": {
+      "isTyping": false,
+      "timestamp": "2025-05-21T18:03:02.029Z",
+      "userId": "PKKbofIT1icTjvGPs2653mZAx4i2"
+    }
+  },
+  "users": {
+    "0FJ7Lldia2YCyeMUFLgTwlEjPHN2": {
+      "address": "Institute Of Technical Education Research ITER, Bhubaneswar ; Jagamohan Nagar, Khandagiri, Bhubaneswar, Odisha PIN Code - 751030",
+      "cart": {
+        "-OQe8cjCr-Rjxm2xsqZ-": {
+          "addedAt": "2025-05-21T03:57:27.514Z",
+          "foodType": "veg",
+          "name": "Veg Biryani",
+          "price": 100,
+          "quantity": 1,
+          "thumbnail": "https://res.cloudinary.com/dqaygduva/image/upload/v1747685088/kgm3pcjnj1tgbixfdx7n.jpg"
+        },
+        "-OQe9CiXYbX1pjRw1Hl3": {
+          "addedAt": "2025-05-21T03:57:29.408Z",
+          "foodType": "non-veg",
+          "name": "Non-Veg Biryani",
+          "price": 120,
+          "quantity": 1,
+          "thumbnail": "https://res.cloudinary.com/dqaygduva/image/upload/v1747685250/i1zsmln2uqqdfl5fqjtw.jpg"
+        }
+      },
+      "fullName": "Rakesh Kumar Raut",
+      "phone": "09040296572",
+      "photoURL": "https://res.cloudinary.com/dqaygduva/image/upload/v1747686597/ybq2y0fowpb4yxscaxkm.avif",
+      "updatedAt": "2025-05-19T20:30:07.054Z",
+      "usedCoupons": {
+        "TEST20": {
+          "discount": 20,
+          "usedAt": "2025-05-20T08:56:15.458Z"
+        },
+        "WELCOME10": {
+          "discount": 24,
+          "usedAt": "2025-05-21T03:57:45.680Z"
+        }
+      },
+      "wishlist": {
+        "-OQe9CiXYbX1pjRw1Hl3": {
+          "addedAt": "2025-05-21T03:57:24.454Z"
+        }
+      }
+    },
+    "7oTfaavl0vTXLZHC4nThFjTQAWI2": {
+      "address": "Institute Of Technical Education Research ITER, Bhubaneswar ; Jagamohan Nagar, Khandagiri, Bhubaneswar, Odisha PIN Code - 751030",
+      "fullName": "Som Mishra",
+      "phone": "09040296572",
+      "photoURL": "https://res.cloudinary.com/dqaygduva/image/upload/v1747805922/ecb2gpwaa5q0pg4zs8rk.webp",
+      "updatedAt": "2025-05-21T05:38:52.525Z"
+    },
+    "GRvrXwKQT9NJhsgnDpgorMuWD5l2": {
+      "address": "Institute Of Technical Education Research ITER, Bhubaneswar ; Jagamohan Nagar, Khandagiri, Bhubaneswar, Odisha PIN Code - 751030",
+      "createdAt": "2025-05-19T19:53:33.150Z",
+      "email": "yehrhimeriemailid@gmail.com",
+      "fullName": "Rakesh Kumar Raut",
+      "phone": "09040296572",
+      "photoURL": "https://res.cloudinary.com/dqaygduva/image/upload/v1747686141/uw5kyopncbludfcfzfsa.avif",
+      "role": "user",
+      "updatedAt": "2025-05-19T20:22:35.910Z",
+      "usedCoupons": {
+        "TEST20": {
+          "discount": 12,
+          "usedAt": "2025-05-21T06:45:05.956Z"
+        },
+        "WELCOME10": {
+          "discount": 20,
+          "usedAt": "2025-05-20T15:12:34.231Z"
+        }
+      },
+      "wishlist": {
+        "-OQe8cjCr-Rjxm2xsqZ-": {
+          "addedAt": "2025-05-20T15:11:46.546Z"
+        }
+      }
+    },
+    "MzDBve5pdJMTbDEm9L1dFeOQFGs2": {
+      "address": "Institute Of Technical Education Research ITER, Bhubaneswar ; Jagamohan Nagar, Khandagiri, Bhubaneswar, Odisha PIN Code - 751030",
+      "createdAt": "2025-05-21T05:41:41.174Z",
+      "email": "satish@gmail.com",
+      "fullName": "Satish Das",
+      "phone": "08077774326",
+      "photoURL": "https://res.cloudinary.com/dqaygduva/image/upload/v1747806138/gqbwsrhjzzokkrlncmap.jpg",
+      "role": "user",
+      "updatedAt": "2025-05-21T05:42:34.595Z"
+    },
+    "PKKbofIT1icTjvGPs2653mZAx4i2": {
+      "address": "near ITER BH12 ",
+      "fullName": "Goodly Pradhan",
+      "phone": "8056224952",
+      "photoURL": "",
+      "updatedAt": "2025-05-21T17:53:12.105Z"
+    },
+    "ZKyIw9f4veXHyJXnQlMU1FVMBfB2": {
+      "address": "Institute Of Technical Education Research ITER, Bhubaneswar ; Jagamohan Nagar, Khandagiri, Bhubaneswar, Odisha PIN Code - 751030",
+      "fullName": "Ritesh Mohanty",
+      "phone": "083928926329",
+      "photoURL": "https://res.cloudinary.com/dqaygduva/image/upload/v1747800253/svnk96yr36xkvgsihr6k.webp",
+      "updatedAt": "2025-05-21T04:04:30.368Z",
+      "usedCoupons": {
+        "WELCOME10": {
+          "discount": 20,
+          "usedAt": "2025-05-21T04:29:09.927Z"
+        }
+      },
+      "wishlist": {
+        "-OQe9CiXYbX1pjRw1Hl3": {
+          "addedAt": "2025-05-21T04:07:02.827Z"
+        }
+      }
+    },
+    "b8Ip7qQR5WZjhe8Ag9tPlNm8qA52": {
+      "address": "Institute Of Technical Education Research ITER, Bhubaneswar ; Jagamohan Nagar, Khandagiri, Bhubaneswar, Odisha PIN Code - 751030",
+      "cart": {
+        "-OQe8cjCr-Rjxm2xsqZ-": {
+          "addedAt": "2025-05-21T14:51:30.185Z",
+          "foodType": "veg",
+          "name": "Veg Biryani",
+          "price": 100,
+          "quantity": 1,
+          "thumbnail": "https://res.cloudinary.com/dqaygduva/image/upload/v1747685088/kgm3pcjnj1tgbixfdx7n.jpg"
+        }
+      },
+      "fullName": "Goodly",
+      "phone": "08077774326",
+      "photoURL": "https://res.cloudinary.com/dqaygduva/image/upload/v1747835363/yoop0givrpf5kywvyhuy.jpg",
+      "updatedAt": "2025-05-21T13:50:15.437Z",
+      "usedCoupons": {
+        "WELCOME10": {
+          "discount": 24,
+          "usedAt": "2025-05-21T13:51:16.867Z"
+        }
+      }
+    }
+  }
+}

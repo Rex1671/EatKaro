@@ -14,6 +14,19 @@ let lastSeenTimestamp = {};
 let typingStatus = {};
 let notificationSound = new Audio('/sounds/notification.mp3');
 
+let shownNotifications = new Set();
+
+document.addEventListener('DOMContentLoaded', () => {
+  
+    const savedNotifications = localStorage.getItem('userShownNotifications');
+    if (savedNotifications) {
+        shownNotifications = new Set(JSON.parse(savedNotifications));
+    }
+});
+
+function saveShownNotifications() {
+    localStorage.setItem('userShownNotifications', JSON.stringify([...shownNotifications]));
+}
 
 document.addEventListener('DOMContentLoaded', function() {
     const paymentModal = document.getElementById('payment-modal');
@@ -577,6 +590,11 @@ async function loadOrders() {
             .equalTo(currentUser.uid)
             .on('value', async (snapshot) => {
                 const orders = [];
+                let previousOrders = {};
+                
+                if (window.previousOrdersState) {
+                    previousOrders = window.previousOrdersState;
+                }
                 
                 if (snapshot.exists()) {
                     for (const [orderId, orderData] of Object.entries(snapshot.val())) {
@@ -586,8 +604,21 @@ async function loadOrders() {
                             createdAt: orderData.createdAt || new Date().toISOString()
                         };
                         
+                        if (previousOrders[orderId] && previousOrders[orderId].status !== order.status) {
+                            const notificationType = 
+                                order.status === 'completed' ? 'success' :
+                                order.status === 'cancelled' ? 'error' :
+                                order.status === 'pending_payment' ? 'warning' :
+                                'info';
+                            
+                            showNotification(
+                                `Order #${orderId.slice(-6)} Status Update`,
+                                getStatusNotificationMessage(order.status, orderId),
+                                notificationType
+                            );
+                        }
+                        
                         if (order.status === 'completed') {
-                         
                             const reviewsSnapshot = await database.ref(`reviews/${order.sellerId}`).once('value');
                             if (reviewsSnapshot.exists()) {
                                 const reviews = reviewsSnapshot.val();
@@ -608,15 +639,15 @@ async function loadOrders() {
                     }
                 }
                 
+                window.previousOrdersState = orders.reduce((acc, order) => {
+                    acc[order.id] = order;
+                    return acc;
+                }, {});
                 
-                orders.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-                
-               
                 const activeOrders = orders.filter(order => 
                     ['pending', 'preparing', 'ready', 'out_for_delivery', 'pending_payment'].includes(order.status)
                 );
                 
-               
                 const completedOrders = orders.filter(order => 
                     ['completed', 'cancelled'].includes(order.status)
                 );
@@ -627,7 +658,6 @@ async function loadOrders() {
                     completed: completedOrders.length
                 });
 
-              
                 const activeContainer = document.getElementById('active-orders');
                 const completedContainer = document.getElementById('completed-orders');
                 
@@ -686,21 +716,7 @@ function displayOrders(orders, containerId) {
         return;
     }
 
-   
-    if (containerId === 'completed-orders') {
-        // container.innerHTML = `
-        //     <div class="flex justify-end mb-4">
-        //         <button onclick="downloadOrderHistoryPDF()" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 flex items-center space-x-2">
-        //             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        //                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
-        //             </svg>
-        //             <span>Download All Orders</span>
-        //         </button>
-        //     </div>
-        // `;
-    }
-
-    container.innerHTML += orders.map(order => `
+    container.innerHTML = orders.map(order => `
         <div class="bg-white rounded-lg shadow-md p-6 mb-4">
             <div class="flex justify-between items-start mb-4">
                 <div>
@@ -782,13 +798,85 @@ function displayOrders(orders, containerId) {
                         </button>
                     ` : ''}
                     <button onclick="document.getElementById('chat-modal').classList.remove('hidden'); initializeChat('${order.id}')"
-                            class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300">
-                        Chat with Restaurant
+                            class="relative px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300">
+                        <span class="chat-button-text">Chat with Restaurant</span>
+                        <span id="chat-notification-${order.id}" class="hidden absolute -top-2 -right-2 bg-red-500 text-white rounded-full h-5 w-5 flex items-center justify-center text-xs animate-bounce">1</span>
                     </button>
                 </div>
             </div>
         </div>
     `).join('');
+
+    orders.forEach(order => {
+        initializeChatNotifications(order.id);
+    });
+}
+
+
+function initializeChatNotifications(orderId) {
+    const chatRef = database.ref(`chats/${orderId}`);
+    chatRef.on('child_added', (snapshot) => {
+        const message = snapshot.val();
+        const notificationId = `chat-${orderId}-${snapshot.key}`;
+        
+        if (message.senderId !== currentUser.uid && 
+            !message.seen && 
+            !shownNotifications.has(notificationId)) {
+            
+            const chatButton = document.querySelector(`button[onclick*="initializeChat('${orderId}')"]`);
+            if (chatButton) {
+                let badge = chatButton.querySelector('.notification-badge');
+                if (!badge) {
+                    badge = document.createElement('span');
+                    badge.className = 'notification-badge absolute -top-2 -right-2 bg-red-500 text-white rounded-full h-5 w-5 flex items-center justify-center text-xs';
+                    chatButton.classList.add('relative');
+                    chatButton.appendChild(badge);
+                }
+                const count = parseInt(badge.textContent || '0') + 1;
+                badge.textContent = count;
+            }
+
+            showToastNotification(orderId, message.text);
+            
+            shownNotifications.add(notificationId);
+            saveShownNotifications();
+        }
+    });
+}
+
+function showToastNotification(orderId, message) {
+    const notificationId = `toast-${orderId}-${Date.now()}`;
+    const toast = document.createElement('div');
+    toast.id = notificationId;
+    toast.className = 'fixed bottom-4 right-4 bg-indigo-600 text-white px-6 py-3 rounded-lg shadow-lg transform transition-transform duration-300 translate-y-0 z-50 cursor-pointer';
+    toast.innerHTML = `
+        <div class="flex items-center space-x-3">
+            <div class="flex-shrink-0">
+                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/>
+                </svg>
+            </div>
+            <div>
+                <p class="font-medium">New Message</p>
+                <p class="text-sm opacity-90">${message}</p>
+            </div>
+        </div>
+    `;
+
+    toast.onclick = () => {
+        document.getElementById('chat-modal').classList.remove('hidden');
+        initializeChat(orderId);
+        toast.remove();
+    };
+
+    document.body.appendChild(toast);
+
+    setTimeout(() => {
+        if (toast.parentNode) {
+            toast.classList.add('translate-y-full');
+            setTimeout(() => toast.remove(), 300);
+        }
+    }, 5000);
 }
 
 async function downloadOrderHistoryPDF() {
@@ -857,14 +945,22 @@ async function downloadOrderHistoryPDF() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    ${order.items?.map(item => `
-                                        <tr>
-                                            <td class="px-4 py-2">${item.name}</td>
-                                            <td class="px-4 py-2 text-center">${item.quantity}</td>
-                                            <td class="px-4 py-2 text-right">₹${item.price.toFixed(2)}</td>
-                                            <td class="px-4 py-2 text-right">₹${(item.price * item.quantity).toFixed(2)}</td>
+                                    ${Array.isArray(order.items) ? order.items.map(item => `
+                                        <tr class="border-b border-gray-200">
+                                            <td class="px-4 py-3">
+                                                <div class="flex items-center">
+                                                    <img src="${item.thumbnail || 'images/default-food.png'}" alt="${item.name}" class="w-12 h-12 object-cover rounded-lg mr-3">
+                                                    <div>
+                                                        <p class="font-medium text-gray-900">${item.name}</p>
+                                                        <p class="text-sm text-gray-500">${item.foodType === 'veg' ? '🟢 Vegetarian' : '🔴 Non-Vegetarian'}</p>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="px-4 py-3 text-center">${item.quantity || 1}</td>
+                                            <td class="px-4 py-3 text-right">₹${(item.price || 0).toFixed(2)}</td>
+                                            <td class="px-4 py-3 text-right font-medium">₹${((item.price || 0) * (item.quantity || 1)).toFixed(2)}</td>
                                         </tr>
-                                    `).join('') || ''}
+                                    `).join('') : ''}
                                 </tbody>
                                 <tfoot>
                                     <tr class="border-t">
@@ -2354,27 +2450,57 @@ function updateMessageStatus(orderId, seen) {
     });
 }
 
-function showNotification(title, message) {
-    if (!("Notification" in window)) {
-        log('Notifications not supported', 'warning');
-        return;
-    }
+function showNotification(title, message, type = 'info') {
+    const notification = document.createElement('div');
+    notification.className = `fixed top-4 right-4 p-4 rounded-lg shadow-lg z-50 transform transition-all duration-500 translate-x-full ${
+        type === 'info' ? 'bg-blue-500' :
+        type === 'success' ? 'bg-green-500' :
+        type === 'warning' ? 'bg-yellow-500' :
+        'bg-red-500'
+    } text-white`;
     
-    if (Notification.permission === "granted") {
-        new Notification(title, {
-            body: message,
-            icon: '/images/logo.png'
-        });
-    } else if (Notification.permission !== "denied") {
-        Notification.requestPermission().then(permission => {
-            if (permission === "granted") {
-                new Notification(title, {
-                    body: message,
-                    icon: '/images/logo.png'
-                });
-            }
-        });
-    }
+    notification.innerHTML = `
+        <div class="flex items-center">
+            <div class="flex-shrink-0">
+                ${type === 'info' ? '<i class="fas fa-info-circle"></i>' :
+                  type === 'success' ? '<i class="fas fa-check-circle"></i>' :
+                  type === 'warning' ? '<i class="fas fa-exclamation-circle"></i>' :
+                  '<i class="fas fa-times-circle"></i>'}
+            </div>
+            <div class="ml-3">
+                <h3 class="text-sm font-medium">${title}</h3>
+                <p class="text-sm">${message}</p>
+            </div>
+            <button onclick="this.parentElement.parentElement.remove()" class="ml-4 flex-shrink-0">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.style.transform = 'translateX(0)';
+    }, 100);
+    
+    setTimeout(() => {
+        notification.style.transform = 'translateX(full)';
+        setTimeout(() => notification.remove(), 5000);
+    }, 5000);
+}
+
+function getStatusNotificationMessage(newStatus, orderId) {
+    const statusMessages = {
+        'pending': 'Your order has been placed and is waiting for confirmation.',
+        'preparing': 'Your order is being prepared by the restaurant.',
+        'ready': 'Your order is ready for delivery.',
+        'out_for_delivery': 'Your order is out for delivery.',
+        'completed': 'Your order has been delivered successfully.',
+        'cancelled': 'Your order has been cancelled.',
+        'pending_payment': 'Please complete the payment for your order.'
+    };
+    
+    return statusMessages[newStatus] || `Your order status has been updated to ${newStatus.replace(/_/g, ' ')}`;
 }
 
 function createOrderCard(order) {
@@ -2520,130 +2646,30 @@ async function downloadOrderBill(orderId) {
         const snapshot = await database.ref(`orders/${orderId}`).once('value');
         const order = snapshot.val();
         
-        if (!order || order.status !== 'completed') {
-            throw new Error('Order not found or not completed');
+        if (!order) {
+            throw new Error('Order not found');
         }
 
-        const container = document.createElement('div');
-        container.className = 'p-8 bg-white';
-        container.innerHTML = `
-            <div class="text-center mb-8 border-b pb-6">
-                <h1 class="text-4xl font-bold text-indigo-600 mb-2">EatKaro</h1>
-                <p class="text-xl text-gray-600">Order Bill</p>
-                <p class="text-sm text-gray-500 mt-2">Generated on ${new Date().toLocaleString()}</p>
-            </div>
-            
-            <div class="mb-8 bg-indigo-50 p-6 rounded-lg">
-                <h2 class="text-2xl font-semibold mb-4 text-indigo-700">Order Information</h2>
-                <div class="grid grid-cols-2 gap-6">
-                    <div>
-                        <p class="text-gray-700 mb-2"><span class="font-semibold">Order ID:</span> ${orderId}</p>
-                        <p class="text-gray-700 mb-2"><span class="font-semibold">Date:</span> ${new Date(order.createdAt).toLocaleString()}</p>
-                        <p class="text-gray-700 mb-2"><span class="font-semibold">Status:</span> <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-sm">${order.status.toUpperCase()}</span></p>
-                    </div>
-                    <div>
-                        <p class="text-gray-700 mb-2"><span class="font-semibold">Restaurant:</span> ${order.sellerName}</p>
-                        <p class="text-gray-700 mb-2"><span class="font-semibold">Payment Method:</span> ${order.paymentMethod.toUpperCase()}</p>
-                        <p class="text-gray-700 mb-2"><span class="font-semibold">Delivery Address:</span> ${order.deliveryAddress || 'N/A'}</p>
-                    </div>
-                </div>
-            </div>
+        if (order.status !== 'completed') {
+            throw new Error('Order is not completed');
+        }
 
-            <div class="mb-8 bg-gray-50 p-6 rounded-lg">
-                <h2 class="text-2xl font-semibold mb-4 text-gray-700">Customer Information</h2>
-                <div class="grid grid-cols-2 gap-6">
-                    <div>
-                        <p class="text-gray-700 mb-2"><span class="font-semibold">Name:</span> ${userProfile?.fullName || 'N/A'}</p>
-                        <p class="text-gray-700 mb-2"><span class="font-semibold">Phone:</span> ${userProfile?.phone || 'N/A'}</p>
-                    </div>
-                    <div>
-                        <p class="text-gray-700 mb-2"><span class="font-semibold">Email:</span> ${currentUser?.email || 'N/A'}</p>
-                        <p class="text-gray-700 mb-2"><span class="font-semibold">Address:</span> ${userProfile?.address || 'N/A'}</p>
-                    </div>
-                </div>
-            </div>
+        log('Order data retrieved', 'debug', {
+            orderId,
+            itemsCount: order.items ? order.items.length : 0,
+            items: order.items
+        });
 
-            <div class="mb-8">
-                <h2 class="text-2xl font-semibold mb-4 text-gray-700">Order Details</h2>
-                <table class="w-full border-collapse">
-                    <thead>
-                        <tr class="bg-indigo-100">
-                            <th class="px-4 py-3 text-left text-indigo-700 font-semibold">Item</th>
-                            <th class="px-4 py-3 text-center text-indigo-700 font-semibold">Quantity</th>
-                            <th class="px-4 py-3 text-right text-indigo-700 font-semibold">Price</th>
-                            <th class="px-4 py-3 text-right text-indigo-700 font-semibold">Total</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        ${order.items?.map(item => `
-                            <tr class="border-b border-gray-200">
-                                <td class="px-4 py-3">
-                                    <div class="flex items-center">
-                                        <img src="${item.thumbnail}" alt="${item.name}" class="w-12 h-12 object-cover rounded-lg mr-3">
-                                        <div>
-                                            <p class="font-medium text-gray-900">${item.name}</p>
-                                            <p class="text-sm text-gray-500">${item.foodType === 'veg' ? '🟢 Vegetarian' : '🔴 Non-Vegetarian'}</p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="px-4 py-3 text-center">${item.quantity}</td>
-                                <td class="px-4 py-3 text-right">₹${item.price.toFixed(2)}</td>
-                                <td class="px-4 py-3 text-right font-medium">₹${(item.price * item.quantity).toFixed(2)}</td>
-                            </tr>
-                        `).join('') || ''}
-                    </tbody>
-                    <tfoot>
-                        <tr class="border-t-2 border-gray-300">
-                            <td colspan="3" class="px-4 py-3 text-right font-medium text-gray-700">Subtotal:</td>
-                            <td class="px-4 py-3 text-right font-medium">₹${order.subtotal.toFixed(2)}</td>
-                        </tr>
-                        ${order.discount > 0 ? `
-                            <tr>
-                                <td colspan="3" class="px-4 py-3 text-right font-medium text-green-600">Discount:</td>
-                                <td class="px-4 py-3 text-right font-medium text-green-600">-₹${order.discount.toFixed(2)}</td>
-                            </tr>
-                        ` : ''}
-                        <tr class="border-t-2 border-gray-300">
-                            <td colspan="3" class="px-4 py-3 text-right font-bold text-gray-900">Total Amount:</td>
-                            <td class="px-4 py-3 text-right font-bold text-indigo-600">₹${order.total.toFixed(2)}</td>
-                        </tr>
-                    </tfoot>
-                </table>
-            </div>
+        if (!order.items || !Array.isArray(order.items)) {
+            throw new Error('Invalid order items data');
+        }
 
-            ${order.reviewed ? `
-                <div class="mb-8 bg-gray-50 p-6 rounded-lg">
-                    <h2 class="text-2xl font-semibold mb-4 text-gray-700">Customer Review</h2>
-                    <div class="p-4 bg-white rounded-lg shadow-sm">
-                        <div class="flex items-center mb-3">
-                            ${generateStarRating(order.rating)}
-                            <span class="text-sm text-gray-500 ml-2">
-                                ${new Date(order.reviewDate).toLocaleDateString()}
-                            </span>
-                        </div>
-                        <p class="text-gray-700">${order.reviewComment}</p>
-                        ${order.reviewReply ? `
-                            <div class="mt-4 p-4 bg-indigo-50 rounded-lg">
-                                <h5 class="font-semibold text-indigo-700 mb-2">Restaurant's Reply</h5>
-                                <p class="text-gray-700">${order.reviewReply}</p>
-                                <p class="text-sm text-gray-500 mt-2">
-                                    Replied on ${new Date(order.reviewReplyDate).toLocaleDateString()}
-                                </p>
-                            </div>
-                        ` : ''}
-                    </div>
-                </div>
-            ` : ''}
-
-            <div class="mt-8 text-center border-t pt-6">
-                <p class="text-gray-600 mb-2">Thank you for choosing EatKaro!</p>
-                <p class="text-sm text-gray-500">This is a computer-generated document and does not require a signature.</p>
-                <div class="mt-4 flex justify-center space-x-4">
-                    <p class="text-sm text-gray-500">For any queries, contact us at:</p>
-                    <p class="text-sm text-indigo-600">support@eatkaro.com</p>
-                </div>
-            </div>
-        `;
+        let container;
+        if (order.items.length === 1) {
+            container = await generateSingleItemBill(order, orderId);
+        } else {
+            container = await generateMultipleItemsBill(order, orderId);
+        }
 
         const opt = {
             margin: 1,
@@ -2653,14 +2679,267 @@ async function downloadOrderBill(orderId) {
             jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
         };
 
-       
         await html2pdf().set(opt).from(container).save();
         
         log('Order bill PDF generated successfully', 'success', { orderId });
     } catch (error) {
-        log('Error generating order bill PDF', 'error', { error: error.message, orderId });
+        log('Error generating order bill PDF', 'error', { 
+            error: error.message, 
+            orderId,
+            stack: error.stack 
+        });
         alert('Error generating bill. Please try again.');
     }
     
     hideSpinner();
+}
+
+async function generateSingleItemBill(order, orderId) {
+    const item = order.items[0];
+    const itemTotal = (item.price || 0) * (item.quantity || 1);
+    
+    const container = document.createElement('div');
+    container.className = 'p-8 bg-white';
+    
+    container.innerHTML = `
+        <div class="text-center mb-8 border-b pb-6">
+            <h1 class="text-4xl font-bold text-indigo-600 mb-2">EatKaro</h1>
+            <p class="text-xl text-gray-600">Order Bill</p>
+            <p class="text-sm text-gray-500 mt-2">Generated on ${new Date().toLocaleString()}</p>
+        </div>
+        
+        <div class="mb-8 bg-indigo-50 p-6 rounded-lg">
+            <h2 class="text-2xl font-semibold mb-4 text-indigo-700">Order Information</h2>
+            <div class="grid grid-cols-2 gap-6">
+                <div>
+                    <p class="text-gray-700 mb-2"><span class="font-semibold">Order ID:</span> ${orderId}</p>
+                    <p class="text-gray-700 mb-2"><span class="font-semibold">Date:</span> ${new Date(order.createdAt).toLocaleString()}</p>
+                    <p class="text-gray-700 mb-2"><span class="font-semibold">Status:</span> <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-sm">${order.status.toUpperCase()}</span></p>
+                </div>
+                <div>
+                    <p class="text-gray-700 mb-2"><span class="font-semibold">Restaurant:</span> ${order.sellerName || 'N/A'}</p>
+                    <p class="text-gray-700 mb-2"><span class="font-semibold">Payment Method:</span> ${(order.paymentMethod || 'N/A').toUpperCase()}</p>
+                    <p class="text-gray-700 mb-2"><span class="font-semibold">Delivery Address:</span> ${order.deliveryAddress || 'N/A'}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-8 bg-gray-50 p-6 rounded-lg">
+            <h2 class="text-2xl font-semibold mb-4 text-gray-700">Customer Information</h2>
+            <div class="grid grid-cols-2 gap-6">
+                <div>
+                    <p class="text-gray-700 mb-2"><span class="font-semibold">Name:</span> ${userProfile?.fullName || 'N/A'}</p>
+                    <p class="text-gray-700 mb-2"><span class="font-semibold">Phone:</span> ${userProfile?.phone || 'N/A'}</p>
+                </div>
+                <div>
+                    <p class="text-gray-700 mb-2"><span class="font-semibold">Email:</span> ${currentUser?.email || 'N/A'}</p>
+                    <p class="text-gray-700 mb-2"><span class="font-semibold">Address:</span> ${userProfile?.address || 'N/A'}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-8">
+            <h2 class="text-2xl font-semibold mb-4 text-gray-700">Order Details</h2>
+            <div class="bg-white rounded-lg shadow-sm p-6">
+                <div class="flex items-center space-x-4 mb-4">
+                    <img src="${item.thumbnail || 'images/default-food.png'}" alt="${item.name || 'Item'}" class="w-24 h-24 object-cover rounded-lg">
+                    <div>
+                        <h3 class="text-lg font-medium text-gray-900">${item.name || 'Unnamed Item'}</h3>
+                        <p class="text-sm text-gray-500">${item.foodType === 'veg' ? '🟢 Vegetarian' : '🔴 Non-Vegetarian'}</p>
+                        <p class="text-sm text-gray-500">Quantity: ${item.quantity || 1}</p>
+                    </div>
+                </div>
+                <div class="border-t pt-4">
+                    <div class="flex justify-between items-center">
+                        <span class="text-gray-600">Price per item:</span>
+                        <span class="text-gray-900">₹${(item.price || 0).toFixed(2)}</span>
+                    </div>
+                    <div class="flex justify-between items-center mt-2">
+                        <span class="text-gray-600">Quantity:</span>
+                        <span class="text-gray-900">${item.quantity || 1}</span>
+                    </div>
+                    <div class="flex justify-between items-center mt-2 font-medium">
+                        <span class="text-gray-900">Subtotal:</span>
+                        <span class="text-indigo-600">₹${itemTotal.toFixed(2)}</span>
+                    </div>
+                    ${order.discount > 0 ? `
+                        <div class="flex justify-between items-center mt-2 text-green-600">
+                            <span>Discount:</span>
+                            <span>-₹${(order.discount || 0).toFixed(2)}</span>
+                        </div>
+                    ` : ''}
+                    <div class="flex justify-between items-center mt-4 pt-4 border-t font-bold">
+                        <span class="text-gray-900">Total Amount:</span>
+                        <span class="text-indigo-600">₹${(order.total || 0).toFixed(2)}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        ${order.reviewed ? `
+            <div class="mb-8 bg-gray-50 p-6 rounded-lg">
+                <h2 class="text-2xl font-semibold mb-4 text-gray-700">Customer Review</h2>
+                <div class="p-4 bg-white rounded-lg shadow-sm">
+                    <div class="flex items-center mb-3">
+                        ${generateStarRating(order.rating)}
+                        <span class="text-sm text-gray-500 ml-2">
+                            ${new Date(order.reviewDate).toLocaleDateString()}
+                        </span>
+                    </div>
+                    <p class="text-gray-700">${order.reviewComment}</p>
+                    ${order.reviewReply ? `
+                        <div class="mt-4 p-4 bg-indigo-50 rounded-lg">
+                            <h5 class="font-semibold text-indigo-700 mb-2">Restaurant's Reply</h5>
+                            <p class="text-gray-700">${order.reviewReply}</p>
+                            <p class="text-sm text-gray-500 mt-2">
+                                Replied on ${new Date(order.reviewReplyDate).toLocaleDateString()}
+                            </p>
+                        </div>
+                    ` : ''}
+                </div>
+            </div>
+        ` : ''}
+
+        <div class="mt-8 text-center border-t pt-6">
+            <p class="text-gray-600 mb-2">Thank you for choosing EatKaro!</p>
+            <p class="text-sm text-gray-500">This is a computer-generated document and does not require a signature.</p>
+            <div class="mt-4 flex justify-center space-x-4">
+                <p class="text-sm text-gray-500">For any queries, contact us at:</p>
+                <p class="text-sm text-indigo-600">support@eatkaro.com</p>
+            </div>
+        </div>
+    `;
+
+    return container;
+}
+
+async function generateMultipleItemsBill(order, orderId) {
+    const container = document.createElement('div');
+    container.className = 'p-8 bg-white';
+    
+    const itemsHtml = order.items.map(item => {
+        const itemTotal = (item.price || 0) * (item.quantity || 1);
+        return `
+            <tr class="border-b border-gray-200">
+                <td class="px-4 py-3">
+                    <div class="flex items-center">
+                        <img src="${item.thumbnail || 'images/default-food.png'}" alt="${item.name || 'Item'}" class="w-12 h-12 object-cover rounded-lg mr-3">
+                        <div>
+                            <p class="font-medium text-gray-900">${item.name || 'Unnamed Item'}</p>
+                            <p class="text-sm text-gray-500">${item.foodType === 'veg' ? '🟢 Vegetarian' : '🔴 Non-Vegetarian'}</p>
+                        </div>
+                    </div>
+                </td>
+                <td class="px-4 py-3 text-center">${item.quantity || 1}</td>
+                <td class="px-4 py-3 text-right">₹${(item.price || 0).toFixed(2)}</td>
+                <td class="px-4 py-3 text-right font-medium">₹${itemTotal.toFixed(2)}</td>
+            </tr>
+        `;
+    }).join('');
+
+    container.innerHTML = `
+        <div class="text-center mb-8 border-b pb-6">
+            <h1 class="text-4xl font-bold text-indigo-600 mb-2">EatKaro</h1>
+            <p class="text-xl text-gray-600">Order Bill</p>
+            <p class="text-sm text-gray-500 mt-2">Generated on ${new Date().toLocaleString()}</p>
+        </div>
+        
+        <div class="mb-8 bg-indigo-50 p-6 rounded-lg">
+            <h2 class="text-2xl font-semibold mb-4 text-indigo-700">Order Information</h2>
+            <div class="grid grid-cols-2 gap-6">
+                <div>
+                    <p class="text-gray-700 mb-2"><span class="font-semibold">Order ID:</span> ${orderId}</p>
+                    <p class="text-gray-700 mb-2"><span class="font-semibold">Date:</span> ${new Date(order.createdAt).toLocaleString()}</p>
+                    <p class="text-gray-700 mb-2"><span class="font-semibold">Status:</span> <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-sm">${order.status.toUpperCase()}</span></p>
+                </div>
+                <div>
+                    <p class="text-gray-700 mb-2"><span class="font-semibold">Restaurant:</span> ${order.sellerName || 'N/A'}</p>
+                    <p class="text-gray-700 mb-2"><span class="font-semibold">Payment Method:</span> ${(order.paymentMethod || 'N/A').toUpperCase()}</p>
+                    <p class="text-gray-700 mb-2"><span class="font-semibold">Delivery Address:</span> ${order.deliveryAddress || 'N/A'}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-8 bg-gray-50 p-6 rounded-lg">
+            <h2 class="text-2xl font-semibold mb-4 text-gray-700">Customer Information</h2>
+            <div class="grid grid-cols-2 gap-6">
+                <div>
+                    <p class="text-gray-700 mb-2"><span class="font-semibold">Name:</span> ${userProfile?.fullName || 'N/A'}</p>
+                    <p class="text-gray-700 mb-2"><span class="font-semibold">Phone:</span> ${userProfile?.phone || 'N/A'}</p>
+                </div>
+                <div>
+                    <p class="text-gray-700 mb-2"><span class="font-semibold">Email:</span> ${currentUser?.email || 'N/A'}</p>
+                    <p class="text-gray-700 mb-2"><span class="font-semibold">Address:</span> ${userProfile?.address || 'N/A'}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-8">
+            <h2 class="text-2xl font-semibold mb-4 text-gray-700">Order Details</h2>
+            <table class="w-full border-collapse">
+                <thead>
+                    <tr class="bg-indigo-100">
+                        <th class="px-4 py-3 text-left text-indigo-700 font-semibold">Item</th>
+                        <th class="px-4 py-3 text-center text-indigo-700 font-semibold">Quantity</th>
+                        <th class="px-4 py-3 text-right text-indigo-700 font-semibold">Price</th>
+                        <th class="px-4 py-3 text-right text-indigo-700 font-semibold">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${itemsHtml}
+                </tbody>
+                <tfoot>
+                    <tr class="border-t-2 border-gray-300">
+                        <td colspan="3" class="px-4 py-3 text-right font-medium text-gray-700">Subtotal:</td>
+                        <td class="px-4 py-3 text-right font-medium">₹${(order.subtotal || 0).toFixed(2)}</td>
+                    </tr>
+                    ${order.discount > 0 ? `
+                        <tr>
+                            <td colspan="3" class="px-4 py-3 text-right font-medium text-green-600">Discount:</td>
+                            <td class="px-4 py-3 text-right font-medium text-green-600">-₹${(order.discount || 0).toFixed(2)}</td>
+                        </tr>
+                    ` : ''}
+                    <tr class="border-t-2 border-gray-300">
+                        <td colspan="3" class="px-4 py-3 text-right font-bold text-gray-900">Total Amount:</td>
+                        <td class="px-4 py-3 text-right font-bold text-indigo-600">₹${(order.total || 0).toFixed(2)}</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+        ${order.reviewed ? `
+            <div class="mb-8 bg-gray-50 p-6 rounded-lg">
+                <h2 class="text-2xl font-semibold mb-4 text-gray-700">Customer Review</h2>
+                <div class="p-4 bg-white rounded-lg shadow-sm">
+                    <div class="flex items-center mb-3">
+                        ${generateStarRating(order.rating)}
+                        <span class="text-sm text-gray-500 ml-2">
+                            ${new Date(order.reviewDate).toLocaleDateString()}
+                        </span>
+                    </div>
+                    <p class="text-gray-700">${order.reviewComment}</p>
+                    ${order.reviewReply ? `
+                        <div class="mt-4 p-4 bg-indigo-50 rounded-lg">
+                            <h5 class="font-semibold text-indigo-700 mb-2">Restaurant's Reply</h5>
+                            <p class="text-gray-700">${order.reviewReply}</p>
+                            <p class="text-sm text-gray-500 mt-2">
+                                Replied on ${new Date(order.reviewReplyDate).toLocaleDateString()}
+                            </p>
+                        </div>
+                    ` : ''}
+                </div>
+            </div>
+        ` : ''}
+
+        <div class="mt-8 text-center border-t pt-6">
+            <p class="text-gray-600 mb-2">Thank you for choosing EatKaro!</p>
+            <p class="text-sm text-gray-500">This is a computer-generated document and does not require a signature.</p>
+            <div class="mt-4 flex justify-center space-x-4">
+                <p class="text-sm text-gray-500">For any queries, contact us at:</p>
+                <p class="text-sm text-indigo-600">support@eatkaro.com</p>
+            </div>
+        </div>
+    `;
+
+    return container;
 }
