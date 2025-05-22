@@ -267,6 +267,12 @@ Make sure to set up appropriate security rules in your Firebase Realtime Databas
 }
 ```
 
+
+## Demo Website
+
+https://eatkaro-4baf4.web.app
+
+
 ## Contributing
 
 1. Fork the repository
@@ -281,4 +287,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Support
 
-For support, email support@eatkaro.com or create an issue in the repository. 
+For support,  create an issue in the repository. 
