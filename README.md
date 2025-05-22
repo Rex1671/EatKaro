@@ -121,7 +121,7 @@ A modern food delivery and ordering application built with Node.js, Express, and
 
 1. Clone the repository:
 ```bash
-git clone <repository-url>
+git clone https://github.com/Rex1671/EatKaro
 cd eatkaro
 ```
 
@@ -281,4 +281,96 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Support
 
-For support, email support@eatkaro.com or create an issue in the repository. 
+For support, email support@eatkaro.com or create an issue in the repository.
+
+## Deployment to Firebase Hosting
+
+1. Install Firebase CLI globally:
+```bash
+npm install -g firebase-tools
+```
+
+2. Login to Firebase:
+```bash
+firebase login
+```
+
+3. Initialize Firebase in your project (if not already done):
+```bash
+firebase init
+```
+Select the following options:
+- Choose "Hosting: Configure files for Firebase Hosting"
+- Select your Firebase project
+- Set "public" as your public directory
+- Configure as a single-page app: Yes
+- Set up automatic builds and deploys: No
+
+4. Build your project (if needed):
+```bash
+npm run build
+```
+
+5. Deploy to Firebase:
+```bash
+firebase deploy
+```
+
+After successful deployment, Firebase will provide you with a hosting URL where your application is live.
+
+### Deployment Configuration
+
+The `firebase.json` file contains the following configuration:
+```json
+{
+  "hosting": {
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}
+```
+
+### Post-Deployment Checklist
+
+1. Verify your application is accessible at the provided Firebase hosting URL
+2. Test all authentication flows
+3. Verify real-time database connections
+4. Check if all API endpoints are working
+5. Test the payment integration
+6. Verify file uploads to Firebase Storage
+7. Test the notification system
+
+### Troubleshooting Deployment
+
+If you encounter any issues during deployment:
+
+1. Check Firebase CLI version:
+```bash
+firebase --version
+```
+
+2. Clear Firebase cache:
+```bash
+firebase logout
+firebase login
+```
+
+3. Verify your project configuration:
+```bash
+firebase projects:list
+```
+
+4. Check deployment logs:
+```bash
+firebase hosting:log
+``` 

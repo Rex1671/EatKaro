@@ -336,6 +336,66 @@ async function showItemDetails(itemId) {
         }`;
         
        
+        const reviewsSnapshot = await database.ref(`reviews/${item.sellerId}`).once('value');
+        const reviews = [];
+        let totalRating = 0;
+        let reviewCount = 0;
+
+        if (reviewsSnapshot.exists()) {
+            reviewsSnapshot.forEach((child) => {
+                const review = child.val();
+      
+                if (review.itemId === itemId) {
+                    reviews.push({
+                        id: child.key,
+                        ...review
+                    });
+                    totalRating += review.rating;
+                    reviewCount++;
+                }
+            });
+        }
+
+        reviews.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+        const averageRating = reviewCount > 0 ? totalRating / reviewCount : 0;
+
+        document.getElementById('item-rating').innerHTML = generateStarRating(averageRating);
+        document.getElementById('item-rating-count').textContent = `(${reviewCount} reviews)`;
+
+        const reviewsList = document.getElementById('item-reviews-list');
+        if (reviews.length === 0) {
+            reviewsList.innerHTML = '<p class="text-gray-500 text-center">No reviews yet</p>';
+        } else {
+            reviewsList.innerHTML = reviews.map(review => `
+                <div class="bg-gray-50 p-4 rounded-lg">
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="flex items-center space-x-2">
+                            <span class="font-medium text-gray-900">${review.userName || 'Anonymous User'}</span>
+                            <div class="flex items-center">
+                                ${generateStarRating(review.rating)}
+                            </div>
+                        </div>
+                        <span class="text-sm text-gray-500">${new Date(review.createdAt).toLocaleDateString()}</span>
+                    </div>
+                    <p class="text-gray-600">${review.comment}</p>
+                    ${review.reply ? `
+                        <div class="mt-3 p-3 bg-white rounded border">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h5 class="font-medium text-gray-900">Restaurant's Reply</h5>
+                                    <span class="text-sm text-gray-500">
+                                        ${new Date(review.repliedAt).toLocaleDateString()}
+                                    </span>
+                                </div>
+                            </div>
+                            <p class="mt-2 text-gray-600">${review.reply}</p>
+                        </div>
+                    ` : ''}
+                </div>
+            `).join('');
+        }
+        
         const imagesContainer = document.getElementById('item-images');
         imagesContainer.innerHTML = `
             <div class="relative h-full">
@@ -357,7 +417,6 @@ async function showItemDetails(itemId) {
         
         document.getElementById('quantity').value = '1';
         
-       
         document.getElementById('coupon-code').value = '';
         document.getElementById('coupon-applied').classList.add('hidden');
         document.getElementById('coupon-discount').classList.add('hidden');
@@ -365,10 +424,8 @@ async function showItemDetails(itemId) {
         selectedItem.couponCode = null;
         selectedItem.discount = 0;
         
-     
         updatePriceCalculations();
         
-       
         const actionButtons = document.getElementById('item-action-buttons');
         actionButtons.innerHTML = `
             <div class="flex space-x-4 w-full">
@@ -386,7 +443,6 @@ async function showItemDetails(itemId) {
             </div>
         `;
         
-      
         updateWishlistButton(itemId);
         
         document.getElementById('item-details-modal').classList.remove('hidden');
@@ -643,11 +699,11 @@ async function loadOrders() {
                     acc[order.id] = order;
                     return acc;
                 }, {});
-                
+               
                 const activeOrders = orders.filter(order => 
                     ['pending', 'preparing', 'ready', 'out_for_delivery', 'pending_payment'].includes(order.status)
                 );
-                
+               
                 const completedOrders = orders.filter(order => 
                     ['completed', 'cancelled'].includes(order.status)
                 );
@@ -657,7 +713,7 @@ async function loadOrders() {
                     active: activeOrders.length,
                     completed: completedOrders.length
                 });
-
+              
                 const activeContainer = document.getElementById('active-orders');
                 const completedContainer = document.getElementById('completed-orders');
                 
@@ -792,7 +848,7 @@ function displayOrders(orders, containerId) {
 
                 <div class="mt-4 flex flex-wrap gap-2">
                     ${order.status === 'completed' && !order.reviewed ? `
-                        <button onclick="showReviewModal('${order.sellerId}', '${order.sellerName}', '${order.id}')"
+                        <button onclick="showReviewModal('${order.sellerId}', '${order.sellerName}', '${order.id}', '${order.items && order.items.length === 1 ? order.items[0].id : ''}')"
                                 class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">
                             Write a Review
                         </button>
@@ -992,8 +1048,15 @@ async function downloadOrderHistoryPDF() {
                                     <p class="text-gray-600">${order.reviewComment}</p>
                                     ${order.reviewReply ? `
                                         <div class="mt-4 p-3 bg-white rounded border">
-                                            <h5 class="font-medium mb-2">Restaurant's Reply</h5>
-                                            <p class="text-gray-600">${order.reviewReply}</p>
+                                            <div class="flex justify-between items-start">
+                                                <div>
+                                                    <h5 class="font-medium mb-2">Restaurant's Reply</h5>
+                                                    <span class="text-sm text-gray-500">
+                                                        ${new Date(order.reviewReplyDate).toLocaleDateString()}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <p class="mt-2 text-gray-600">${order.reviewReply}</p>
                                         </div>
                                     ` : ''}
                                 </div>
@@ -1202,33 +1265,49 @@ async function proceedToCheckout(itemId = null) {
                 throw new Error('Item not found');
             }
 
-        
             const quantity = parseInt(document.getElementById('quantity').value) || 1;
-            totalAmount = item.price * quantity;
             
           
+            if (quantity > item.quantity) {
+                throw new Error('Requested quantity is not available in stock');
+            }
+
+            totalAmount = item.price * quantity;
+            
             if (selectedItem && selectedItem.couponApplied) {
                 totalAmount -= selectedItem.discount;
             }
         } else {
-          
+         
             const cartSnapshot = await database.ref(`users/${currentUser.uid}/cart`).once('value');
             const cart = cartSnapshot.val() || {};
             
-          
+            for (const [itemId, cartItem] of Object.entries(cart)) {
+                const itemSnapshot = await database.ref(`items/${itemId}`).once('value');
+                const item = itemSnapshot.val();
+                
+                if (!item) {
+                    throw new Error(`Item ${itemId} not found`);
+                }
+                
+                if (cartItem.quantity > item.quantity) {
+                    throw new Error(`Only ${item.quantity} units of ${item.name} are available in stock`);
+                }
+            }
+            
             totalAmount = Object.values(cart).reduce((sum, item) => sum + (item.price * item.quantity), 0);
         }
 
-       
         const tempOrderId = 'temp_' + Date.now();
-        
         showPaymentModal(totalAmount, tempOrderId);
         
     } catch (error) {
         log('Error proceeding to checkout', 'error', { error: error.message });
-        alert('Error proceeding to checkout. Please try again.');
+        alert(error.message || 'Error proceeding to checkout. Please try again.');
     }
-    hideSpinner();}
+    hideSpinner();
+}
+
 async function handlePaymentMethod(method) {
     log('Payment method selected', 'info', { method, timestamp: new Date().toISOString() });
     
@@ -1460,12 +1539,21 @@ async function addToCart(itemId) {
             throw new Error('Item not found');
         }
 
-      
+  
+        if (item.quantity <= 0) {
+            throw new Error('Item is out of stock');
+        }
+
         const cartRef = database.ref(`users/${currentUser.uid}/cart`);
         const cartSnapshot = await cartRef.once('value');
         const cart = cartSnapshot.val() || {};
 
-      
+  
+        const currentCartQuantity = cart[itemId]?.quantity || 0;
+        if (currentCartQuantity + 1 > item.quantity) {
+            throw new Error('Cannot add more items than available in stock');
+        }
+
         if (cart[itemId]) {
             cart[itemId].quantity += 1;
         } else {
@@ -1479,11 +1567,9 @@ async function addToCart(itemId) {
             };
         }
 
-      
         await cartRef.set(cart);
         log('Item added to cart', 'success');
 
-     
         const cartCount = document.getElementById('cart-count');
         const itemCount = Object.keys(cart).length;
         if (itemCount > 0) {
@@ -1491,7 +1577,6 @@ async function addToCart(itemId) {
             cartCount.classList.remove('hidden');
         }
 
-    
         const toast = document.createElement('div');
         toast.className = 'fixed bottom-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg transform transition-transform duration-300 translate-y-0';
         toast.textContent = 'Item added to cart!';
@@ -1503,7 +1588,7 @@ async function addToCart(itemId) {
 
     } catch (error) {
         log('Error adding to cart', 'error', { error: error.message });
-        alert('Error adding item to cart. Please try again.');
+        alert(error.message || 'Error adding item to cart. Please try again.');
     }
     hideSpinner();
 }
@@ -1600,12 +1685,24 @@ async function updateCartQuantity(itemId, newQuantity) {
     
     showSpinner();
     try {
+    
+        const itemSnapshot = await database.ref(`items/${itemId}`).once('value');
+        const item = itemSnapshot.val();
+        
+        if (!item) {
+            throw new Error('Item not found');
+        }
+
+        if (newQuantity > item.quantity) {
+            throw new Error('Cannot add more items than available in stock');
+        }
+
         const cartRef = database.ref(`users/${currentUser.uid}/cart/${itemId}`);
         await cartRef.update({ quantity: newQuantity });
         await loadCartItems();
     } catch (error) {
         log('Error updating cart quantity', 'error', { error: error.message });
-        alert('Error updating quantity. Please try again.');
+        alert(error.message || 'Error updating quantity. Please try again.');
     }
     hideSpinner();
 }
@@ -1713,12 +1810,13 @@ function displayWishlistItems(items) {
 }
 
 
-async function showReviewModal(sellerId, sellerName, orderId) {
-    log('Showing review modal', 'info', { sellerId, sellerName, orderId });
+async function showReviewModal(sellerId, sellerName, orderId, itemId) {
+    log('Showing review modal', 'info', { sellerId, sellerName, orderId, itemId });
     const modal = document.getElementById('review-modal');
     modal.dataset.sellerId = sellerId;
     modal.dataset.sellerName = sellerName;
     modal.dataset.orderId = orderId;
+    modal.dataset.itemId = itemId;
     modal.classList.remove('hidden');
 }
 
@@ -1750,6 +1848,7 @@ async function submitReview(event) {
     const modal = document.getElementById('review-modal');
     const sellerId = modal.dataset.sellerId;
     const orderId = modal.dataset.orderId;
+    const itemId = modal.dataset.itemId;
     const rating = parseInt(document.getElementById('rating-value').value);
     const comment = document.getElementById('review-comment').value.trim();
 
@@ -1764,6 +1863,7 @@ async function submitReview(event) {
             rating,
             comment,
             orderId,
+            itemId,
             userName: currentUser.displayName,
             userPhotoURL: currentUser.photoURL,
             createdAt: new Date().toISOString()
@@ -2697,12 +2797,42 @@ async function downloadOrderBill(orderId) {
 async function generateSingleItemBill(order, orderId) {
     const item = order.items[0];
     const itemTotal = (item.price || 0) * (item.quantity || 1);
-    
     const container = document.createElement('div');
     container.className = 'p-8 bg-white';
     
+  
+    let reviewSection = '';
+    if (order.rating && order.reviewComment) {
+        reviewSection = `
+            <div class="mb-8 bg-gray-50 p-6 rounded-lg">
+                <h2 class="text-2xl font-semibold mb-4 text-gray-700">Customer Review</h2>
+                <div class="p-4 bg-white rounded-lg shadow-sm">
+                    <div class="flex items-center mb-3">
+                        ${generateStarRating(order.rating)}
+                        <span class="text-sm text-gray-500 ml-2">
+                            ${new Date(order.reviewDate).toLocaleDateString()}
+                        </span>
+                    </div>
+                    <p class="text-gray-700">${order.reviewComment}</p>
+                    ${order.reviewReply ? `
+                        <div class="mt-4 p-4 bg-indigo-50 rounded-lg">
+                            <h5 class="font-semibold text-indigo-700 mb-2">Restaurant's Reply</h5>
+                            <p class="text-gray-700">${order.reviewReply}</p>
+                            <p class="text-sm text-gray-500 mt-2">
+                                Replied on ${new Date(order.reviewReplyDate).toLocaleDateString()}
+                            </p>
+                        </div>
+                    ` : ''}
+                </div>
+            </div>
+        `;
+    }
+    
     container.innerHTML = `
         <div class="text-center mb-8 border-b pb-6">
+            <div class="flex justify-center mb-4">
+                <img src="/images/logo.png" alt="EatKaro Logo" class="h-16">
+            </div>
             <h1 class="text-4xl font-bold text-indigo-600 mb-2">EatKaro</h1>
             <p class="text-xl text-gray-600">Order Bill</p>
             <p class="text-sm text-gray-500 mt-2">Generated on ${new Date().toLocaleString()}</p>
@@ -2776,7 +2906,29 @@ async function generateSingleItemBill(order, orderId) {
             </div>
         </div>
 
-        ${order.reviewed ? `
+        ${reviewSection}
+
+        <div class="mt-8 text-center border-t pt-6">
+            <p class="text-gray-600 mb-2">Thank you for choosing EatKaro!</p>
+            <p class="text-sm text-gray-500">This is a computer-generated document and does not require a signature.</p>
+            <div class="mt-4 flex justify-center space-x-4">
+                <p class="text-sm text-gray-500">For any queries, contact us at:</p>
+                <p class="text-sm text-indigo-600">support@eatkaro.com</p>
+            </div>
+        </div>
+    `;
+
+    return container;
+}
+
+async function generateMultipleItemsBill(order, orderId) {
+    const container = document.createElement('div');
+    container.className = 'p-8 bg-white';
+    
+  
+    let reviewSection = '';
+    if (order.rating && order.reviewComment) {
+        reviewSection = `
             <div class="mb-8 bg-gray-50 p-6 rounded-lg">
                 <h2 class="text-2xl font-semibold mb-4 text-gray-700">Customer Review</h2>
                 <div class="p-4 bg-white rounded-lg shadow-sm">
@@ -2798,25 +2950,9 @@ async function generateSingleItemBill(order, orderId) {
                     ` : ''}
                 </div>
             </div>
-        ` : ''}
+        `;
+    }
 
-        <div class="mt-8 text-center border-t pt-6">
-            <p class="text-gray-600 mb-2">Thank you for choosing EatKaro!</p>
-            <p class="text-sm text-gray-500">This is a computer-generated document and does not require a signature.</p>
-            <div class="mt-4 flex justify-center space-x-4">
-                <p class="text-sm text-gray-500">For any queries, contact us at:</p>
-                <p class="text-sm text-indigo-600">support@eatkaro.com</p>
-            </div>
-        </div>
-    `;
-
-    return container;
-}
-
-async function generateMultipleItemsBill(order, orderId) {
-    const container = document.createElement('div');
-    container.className = 'p-8 bg-white';
-    
     const itemsHtml = order.items.map(item => {
         const itemTotal = (item.price || 0) * (item.quantity || 1);
         return `
@@ -2839,6 +2975,9 @@ async function generateMultipleItemsBill(order, orderId) {
 
     container.innerHTML = `
         <div class="text-center mb-8 border-b pb-6">
+            <div class="flex justify-center mb-4">
+                <img src="/images/logo.png" alt="EatKaro Logo" class="h-16">
+            </div>
             <h1 class="text-4xl font-bold text-indigo-600 mb-2">EatKaro</h1>
             <p class="text-xl text-gray-600">Order Bill</p>
             <p class="text-sm text-gray-500 mt-2">Generated on ${new Date().toLocaleString()}</p>
@@ -2876,60 +3015,40 @@ async function generateMultipleItemsBill(order, orderId) {
 
         <div class="mb-8">
             <h2 class="text-2xl font-semibold mb-4 text-gray-700">Order Details</h2>
-            <table class="w-full border-collapse">
-                <thead>
-                    <tr class="bg-indigo-100">
-                        <th class="px-4 py-3 text-left text-indigo-700 font-semibold">Item</th>
-                        <th class="px-4 py-3 text-center text-indigo-700 font-semibold">Quantity</th>
-                        <th class="px-4 py-3 text-right text-indigo-700 font-semibold">Price</th>
-                        <th class="px-4 py-3 text-right text-indigo-700 font-semibold">Total</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    ${itemsHtml}
-                </tbody>
-                <tfoot>
-                    <tr class="border-t-2 border-gray-300">
-                        <td colspan="3" class="px-4 py-3 text-right font-medium text-gray-700">Subtotal:</td>
-                        <td class="px-4 py-3 text-right font-medium">₹${(order.subtotal || 0).toFixed(2)}</td>
-                    </tr>
-                    ${order.discount > 0 ? `
-                        <tr>
-                            <td colspan="3" class="px-4 py-3 text-right font-medium text-green-600">Discount:</td>
-                            <td class="px-4 py-3 text-right font-medium text-green-600">-₹${(order.discount || 0).toFixed(2)}</td>
+            <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+                <table class="w-full border-collapse">
+                    <thead>
+                        <tr class="bg-indigo-100">
+                            <th class="px-4 py-3 text-left text-indigo-700 font-semibold">Item</th>
+                            <th class="px-4 py-3 text-center text-indigo-700 font-semibold">Quantity</th>
+                            <th class="px-4 py-3 text-right text-indigo-700 font-semibold">Price</th>
+                            <th class="px-4 py-3 text-right text-indigo-700 font-semibold">Total</th>
                         </tr>
-                    ` : ''}
-                    <tr class="border-t-2 border-gray-300">
-                        <td colspan="3" class="px-4 py-3 text-right font-bold text-gray-900">Total Amount:</td>
-                        <td class="px-4 py-3 text-right font-bold text-indigo-600">₹${(order.total || 0).toFixed(2)}</td>
-                    </tr>
-                </tfoot>
-            </table>
+                    </thead>
+                    <tbody>
+                        ${itemsHtml}
+                    </tbody>
+                    <tfoot>
+                        <tr class="border-t-2 border-gray-300">
+                            <td colspan="3" class="px-4 py-3 text-right font-medium text-gray-700">Subtotal:</td>
+                            <td class="px-4 py-3 text-right font-medium">₹${(order.subtotal || 0).toFixed(2)}</td>
+                        </tr>
+                        ${order.discount > 0 ? `
+                            <tr>
+                                <td colspan="3" class="px-4 py-3 text-right font-medium text-green-600">Discount:</td>
+                                <td class="px-4 py-3 text-right font-medium text-green-600">-₹${(order.discount || 0).toFixed(2)}</td>
+                            </tr>
+                        ` : ''}
+                        <tr class="border-t-2 border-gray-300">
+                            <td colspan="3" class="px-4 py-3 text-right font-bold text-gray-900">Total Amount:</td>
+                            <td class="px-4 py-3 text-right font-bold text-indigo-600">₹${(order.total || 0).toFixed(2)}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
         </div>
 
-        ${order.reviewed ? `
-            <div class="mb-8 bg-gray-50 p-6 rounded-lg">
-                <h2 class="text-2xl font-semibold mb-4 text-gray-700">Customer Review</h2>
-                <div class="p-4 bg-white rounded-lg shadow-sm">
-                    <div class="flex items-center mb-3">
-                        ${generateStarRating(order.rating)}
-                        <span class="text-sm text-gray-500 ml-2">
-                            ${new Date(order.reviewDate).toLocaleDateString()}
-                        </span>
-                    </div>
-                    <p class="text-gray-700">${order.reviewComment}</p>
-                    ${order.reviewReply ? `
-                        <div class="mt-4 p-4 bg-indigo-50 rounded-lg">
-                            <h5 class="font-semibold text-indigo-700 mb-2">Restaurant's Reply</h5>
-                            <p class="text-gray-700">${order.reviewReply}</p>
-                            <p class="text-sm text-gray-500 mt-2">
-                                Replied on ${new Date(order.reviewReplyDate).toLocaleDateString()}
-                            </p>
-                        </div>
-                    ` : ''}
-                </div>
-            </div>
-        ` : ''}
+        ${reviewSection}
 
         <div class="mt-8 text-center border-t pt-6">
             <p class="text-gray-600 mb-2">Thank you for choosing EatKaro!</p>

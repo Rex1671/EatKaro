@@ -14,57 +14,144 @@ let notificationSound = new Audio('/sounds/notification.mp3');
 
 let notificationTimeouts = {};
 let shownNotifications = new Set();
+let seenMessages = new Set();
 
 function initializeNotifications() {
-  
-    const savedNotifications = localStorage.getItem('shownNotifications');
-    if (savedNotifications) {
-        shownNotifications = new Set(JSON.parse(savedNotifications));
-    }
+    cleanupNotifications();
+    
+    shownNotifications.clear();
+    seenMessages.clear();
+    saveShownNotifications();
 
-  
+ 
     database.ref('orders').on('child_added', (snapshot) => {
-        const order = snapshot.val();
+        const order = {
+            id: snapshot.key,
+            ...snapshot.val()
+        };
         const notificationId = `order-${order.id}`;
         if (order.sellerId === currentUser.uid && 
             order.status === 'pending' && 
-            !shownNotifications.has(notificationId)) {
+            !shownNotifications.has(notificationId) &&
+            new Date(order.createdAt) > new Date(window.pageLoadTime)) {
             showNewOrderNotification(order);
-            shownNotifications.add(notificationId);
-            saveShownNotifications();
         }
     });
 
 
     database.ref('chats').on('child_added', (snapshot) => {
         const chatRef = snapshot.ref;
+        const orderId = snapshot.key;
+       
+        chatRef.once('value').then((messagesSnapshot) => {
+            messagesSnapshot.forEach((messageSnapshot) => {
+                const message = messageSnapshot.val();
+                const messageId = messageSnapshot.key;
+                const messageKey = `${orderId}-${messageId}`;
+                
+              
+                if (message.senderId === currentUser.uid) {
+                    seenMessages.add(messageKey);
+                }
+            });
+        });
+
+       
         chatRef.on('child_added', (messageSnapshot) => {
             const message = messageSnapshot.val();
-            const notificationId = `chat-${snapshot.key}-${messageSnapshot.key}`;
-            if (message.senderId !== currentUser.uid && 
-                !shownNotifications.has(notificationId)) {
-                showNewChatNotification(snapshot.key, message);
-                shownNotifications.add(notificationId);
-                saveShownNotifications();
+            const messageId = messageSnapshot.key;
+            const messageKey = `${orderId}-${messageId}`;
+            
+          
+            if (message.senderId !== currentUser.uid && !seenMessages.has(messageKey)) {
+                database.ref(`orders/${orderId}`).once('value').then((orderSnapshot) => {
+                    const order = orderSnapshot.val();
+                    if (order && order.sellerId === currentUser.uid) {
+                        const notificationId = `chat-${orderId}-${messageId}`;
+                        if (!shownNotifications.has(notificationId)) {
+                            showNewChatNotification(orderId, message);
+                            shownNotifications.add(notificationId);
+                            seenMessages.add(messageKey);
+                            saveShownNotifications();
+                        }
+                    }
+                });
             }
         });
     });
 }
 
+document.addEventListener('DOMContentLoaded', function() {
+  
+    window.pageLoadTime = new Date().toISOString();
+});
+
+function cleanupNotifications() {
+    if (window.ordersListener) {
+        database.ref('orders').off('child_added', window.ordersListener);
+    }
+    if (window.chatsListener) {
+        database.ref('chats').off('child_added', window.chatsListener);
+    }
+
+    Object.keys(notificationTimeouts).forEach(key => {
+        clearTimeout(notificationTimeouts[key]);
+    });
+    notificationTimeouts = {};
+
+    document.querySelectorAll('[id^="notification-"]').forEach(el => el.remove());
+    document.querySelectorAll('.fixed.bottom-4.right-4').forEach(el => el.remove());
+
+    shownNotifications.clear();
+    seenMessages.clear();
+    saveShownNotifications();
+}
+
 function saveShownNotifications() {
-    localStorage.setItem('shownNotifications', JSON.stringify([...shownNotifications]));
+    const userNotifications = {
+        userId: currentUser.uid,
+        pageLoadTime: window.pageLoadTime,
+        notifications: [...shownNotifications],
+        seenMessages: [...seenMessages]
+    };
+    localStorage.setItem('shownNotifications', JSON.stringify(userNotifications));
+}
+
+function loadSavedNotifications() {
+    try {
+        const savedData = localStorage.getItem('shownNotifications');
+        if (savedData) {
+            const data = JSON.parse(savedData);
+            if (data.userId === currentUser.uid && data.pageLoadTime === window.pageLoadTime) {
+                shownNotifications = new Set(data.notifications);
+                seenMessages = new Set(data.seenMessages || []);
+            } else {
+                shownNotifications = new Set();
+                seenMessages = new Set();
+            }
+        } else {
+            shownNotifications = new Set();
+            seenMessages = new Set();
+        }
+    } catch (error) {
+        console.error('Error loading saved notifications:', error);
+        shownNotifications = new Set();
+        seenMessages = new Set();
+    }
 }
 
 function showNewOrderNotification(order) {
     const notificationId = `order-${order.id}`;
     
+    if (shownNotifications.has(notificationId)) {
+        return;
+    }
 
     const badge = document.createElement('div');
     badge.id = `notification-${notificationId}`;
     badge.className = 'absolute -top-2 -right-2 bg-red-500 text-white rounded-full h-5 w-5 flex items-center justify-center text-xs animate-bounce';
     badge.textContent = '1';
     
-
     const ordersButton = document.querySelector('button[onclick="showOrders()"]');
     if (ordersButton) {
         ordersButton.classList.add('relative');
@@ -82,7 +169,7 @@ function showNewOrderNotification(order) {
             </div>
             <div>
                 <p class="font-medium">New Order Received</p>
-                <p class="text-sm opacity-90">Order #${order.id}</p>
+                <p class="text-sm opacity-90">Order #${order.id.slice(-6)}</p>
             </div>
         </div>
     `;
@@ -90,18 +177,44 @@ function showNewOrderNotification(order) {
     toast.onclick = () => {
         showOrders();
         showOrderTab('active');
+      
+        const orderElement = document.getElementById(`order-${order.id}`);
+        if (orderElement) {
+            orderElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+         
+            orderElement.classList.add('bg-yellow-50');
+            setTimeout(() => {
+                orderElement.classList.remove('bg-yellow-50');
+            }, 2000);
+        }
         toast.remove();
     };
     
     document.body.appendChild(toast);
+    shownNotifications.add(notificationId);
+    saveShownNotifications();
+    setTimeout(() => {
+        if (toast && toast.parentNode) {
+            toast.classList.add('translate-y-full');
+            setTimeout(() => {
+                if (toast && toast.parentNode) {
+                    toast.remove();
+                }
+            }, 300);
+        }
+    }, 5000);
     
     setNotificationCleanup(notificationId, badge, toast);
     
-    showNotification('New Order', `New order received: #${order.id}`);
+    showNotification('New Order', `New order received: #${order.id.slice(-6)}`);
 }
 
 function showNewChatNotification(orderId, message) {
     const notificationId = `chat-${orderId}-${message.id}`;
+    
+    if (shownNotifications.has(notificationId)) {
+        return;
+    }
     
     let badge = document.getElementById(`notification-${notificationId}`);
     if (!badge) {
@@ -110,7 +223,6 @@ function showNewChatNotification(orderId, message) {
         badge.className = 'absolute -top-2 -right-2 bg-red-500 text-white rounded-full h-5 w-5 flex items-center justify-center text-xs animate-bounce';
         badge.textContent = '1';
         
-      
         const chatButton = document.querySelector(`button[onclick*="initializeChat('${orderId}')"]`);
         if (chatButton) {
             chatButton.classList.add('relative');
@@ -137,7 +249,6 @@ function showNewChatNotification(orderId, message) {
         </div>
     `;
     
-  
     toast.onclick = () => {
         document.getElementById('chat-modal').classList.remove('hidden');
         initializeChat(orderId);
@@ -145,6 +256,19 @@ function showNewChatNotification(orderId, message) {
     };
     
     document.body.appendChild(toast);
+    shownNotifications.add(notificationId);
+    saveShownNotifications();
+    
+    setTimeout(() => {
+        if (toast && toast.parentNode) {
+            toast.classList.add('translate-y-full');
+            setTimeout(() => {
+                if (toast && toast.parentNode) {
+                    toast.remove();
+                }
+            }, 300);
+        }
+    }, 5000);
     
     setNotificationCleanup(notificationId, badge, toast);
     
@@ -152,12 +276,10 @@ function showNewChatNotification(orderId, message) {
 }
 
 function setNotificationCleanup(notificationId, badge, toast) {
-   
     if (notificationTimeouts[notificationId]) {
         clearTimeout(notificationTimeouts[notificationId]);
     }
     
-  
     notificationTimeouts[notificationId] = setTimeout(() => {
         if (badge) badge.remove();
         if (toast) {
@@ -374,10 +496,13 @@ auth.onAuthStateChanged(async (user) => {
             currentUser = user; 
             log('User authenticated', 'info', { uid: user.uid });
             
-           
+       
+            cleanupNotifications();
+            
+            loadSavedNotifications();
+            
             const sellerSnapshot = await database.ref(`sellers/${user.uid}`).once('value');
             if (!sellerSnapshot.exists()) {
-              
                 const userSnapshot = await database.ref(`users/${user.uid}`).once('value');
                 if (userSnapshot.exists()) {
                     alert('Access denied. This is a seller dashboard. Please use the user dashboard.');
@@ -387,11 +512,13 @@ auth.onAuthStateChanged(async (user) => {
                 }
             }
             
-       
             await loadSellerProfile();
             await loadInventory();
             await loadOrders();
             await loadReviews();
+            
+          
+            initializeNotifications();
         } catch (error) {
             console.error('Error checking user role:', error);
             alert('Error verifying user role. Please try again.');
@@ -401,6 +528,8 @@ auth.onAuthStateChanged(async (user) => {
     } else {
         currentUser = null;
         log('User signed out', 'info');
+      
+        cleanupNotifications();
         window.location.href = '/index.html';
     }
 });
@@ -1199,13 +1328,18 @@ function displayOrders(orders, containerId) {
 
             <div class="mt-4 flex flex-wrap gap-2">
                 ${getStatusUpdateButtons(order)}
-                <button onclick="document.getElementById('chat-modal').style.display = 'block'; initializeChat('${order.id}')" 
-                        class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700">
-                    <i class="fas fa-comments"></i> Chat with Customer
+                <button onclick="document.getElementById('chat-modal').classList.remove('hidden'); initializeChat('${order.id}')" 
+                        class="relative px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700">
+                    <span class="chat-button-text">Chat with Customer</span>
+                    <span id="chat-notification-${order.id}" class="hidden absolute -top-2 -right-2 bg-red-500 text-white rounded-full h-5 w-5 flex items-center justify-center text-xs animate-bounce">1</span>
                 </button>
             </div>
         </div>
     `).join('');
+
+    orders.forEach(order => {
+        initializeChatNotifications(order.id);
+    });
 }
 
 function getStatusUpdateButtons(order) {
@@ -2312,27 +2446,24 @@ function initializeChat(orderId) {
     const chatMessages = document.getElementById('chat-messages');
     const chatInput = document.getElementById('chat-input');
     const sendButton = document.getElementById('send-message');
-    const typingStatus = document.getElementById('typing-status');
     
     if (!chatModal || !chatMessages || !chatInput || !sendButton) {
         log('Required chat elements not found', 'error');
         return;
     }
     
-    
     chatModal.classList.remove('hidden');
-    
-   
     chatMessages.innerHTML = '';
-    
     
     if (window.currentChatListener) {
         chatRef.off('child_added', window.currentChatListener);
     }
     
-  
     window.currentChatListener = chatRef.on('child_added', (snapshot) => {
         const message = snapshot.val();
+        const messageId = snapshot.key;
+        const messageKey = `${orderId}-${messageId}`;
+        
         log('New message received', 'info', { message });
         
         const messageElement = document.createElement('div');
@@ -2367,21 +2498,16 @@ function initializeChat(orderId) {
         messageElement.appendChild(messageFooter);
         chatMessages.appendChild(messageElement);
         
-        
         chatMessages.scrollTop = chatMessages.scrollHeight;
         
-       
         if (message.senderId !== currentUser.uid) {
+            seenMessages.add(messageKey);
+            saveShownNotifications();
             playNotificationSound();
             showNotification('New Message', message.text);
         }
-        
-      
-        if (message.senderId !== currentUser.uid) {
-            markMessageAsSeen(orderId);
-        }
     });
-  
+
     async function sendMessage() {
         const text = chatInput.value.trim();
         if (!text) {
@@ -2447,3 +2573,109 @@ function initializeChat(orderId) {
 document.querySelector('#chat-modal .close').onclick = function() {
     document.getElementById('chat-modal').style.display = 'none';
 };
+
+document.addEventListener('DOMContentLoaded', () => {
+    const savedNotifications = localStorage.getItem('sellerShownNotifications');
+    if (savedNotifications) {
+        shownNotifications = new Set(JSON.parse(savedNotifications));
+    }
+});
+
+function saveShownNotifications() {
+    localStorage.setItem('sellerShownNotifications', JSON.stringify([...shownNotifications]));
+}
+
+function initializeChatNotifications(orderId) {
+    log('Initializing chat notifications', 'info', { orderId });
+    const chatRef = database.ref(`chats/${orderId}`);
+    
+    chatRef.off('child_added');
+    
+    chatRef.on('child_added', (snapshot) => {
+        const message = snapshot.val();
+        const messageId = snapshot.key;
+        const messageKey = `${orderId}-${messageId}`;
+        const notificationId = `chat-${orderId}-${messageId}`;
+        
+        log('New chat message received', 'info', { message, messageKey, notificationId });
+        
+        if (message.senderId !== currentUser.uid && 
+            !message.seen && 
+            !shownNotifications.has(notificationId)) {
+         
+            const chatButton = document.querySelector(`button[onclick*="initializeChat('${orderId}')"]`);
+            if (chatButton) {
+                let badge = chatButton.querySelector('.notification-badge');
+                if (!badge) {
+                    badge = document.createElement('span');
+                    badge.className = 'notification-badge absolute -top-2 -right-2 bg-red-500 text-white rounded-full h-5 w-5 flex items-center justify-center text-xs animate-bounce';
+                    chatButton.classList.add('relative');
+                    chatButton.appendChild(badge);
+                }
+                const count = parseInt(badge.textContent || '0') + 1;
+                badge.textContent = count;
+            }
+
+            showToastNotification(orderId, message.text);
+     
+            shownNotifications.add(notificationId);
+            seenMessages.add(messageKey);
+            saveShownNotifications();
+            
+            playNotificationSound();
+            
+            showNotification('New Message', `New message from ${message.senderName || 'Customer'}`);
+        }
+    });
+}
+
+function showToastNotification(orderId, message) {
+    log('Showing toast notification', 'info', { orderId, message });
+    const notificationId = `toast-${orderId}-${Date.now()}`;
+    const toast = document.createElement('div');
+    toast.id = notificationId;
+    toast.className = 'fixed bottom-4 right-4 bg-indigo-600 text-white px-6 py-3 rounded-lg shadow-lg transform transition-transform duration-300 translate-y-0 z-50 cursor-pointer';
+    toast.innerHTML = `
+        <div class="flex items-center space-x-3">
+            <div class="flex-shrink-0">
+                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/>
+                </svg>
+            </div>
+            <div>
+                <p class="font-medium">New Message</p>
+                <p class="text-sm opacity-90">${message}</p>
+            </div>
+        </div>
+    `;
+
+    toast.onclick = () => {
+        document.getElementById('chat-modal').classList.remove('hidden');
+        initializeChat(orderId);
+        toast.remove();
+    };
+
+    document.body.appendChild(toast);
+
+    setTimeout(() => {
+        if (toast.parentNode) {
+            toast.classList.add('translate-y-full');
+            setTimeout(() => {
+                if (toast.parentNode) {
+                    toast.remove();
+                }
+            }, 300);
+        }
+    }, 5000);
+}
+
+function playNotificationSound() {
+    try {
+        notificationSound.currentTime = 0;
+        notificationSound.play().catch(err => {
+            log('Error playing notification sound', 'error', { error: err.message });
+        });
+    } catch (error) {
+        log('Error with notification sound', 'error', { error: error.message });
+    }
+}
