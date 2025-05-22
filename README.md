@@ -121,7 +121,7 @@ A modern food delivery and ordering application built with Node.js, Express, and
 
 1. Clone the repository:
 ```bash
-git clone <repository-url>
+git clone https://github.com/Rex1671/EatKaro
 cd eatkaro
 ```
 
