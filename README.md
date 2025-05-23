@@ -147,13 +147,6 @@ We welcome contributions! Please follow these steps:
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 👥 Authors
-
-- **Your Name** - *Initial work* - [Your GitHub](https://github.com/yourusername)
 
 ## 🙏 Acknowledgments
 
@@ -161,10 +154,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Express.js community
 - All contributors who have helped shape this project
 
-## 📞 Support
 
-For support, email support@eatkaro.com or join our Slack channel.
-
----
-
-Made with ❤️ by the EatKaro Team
