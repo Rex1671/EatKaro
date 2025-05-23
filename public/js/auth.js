@@ -2,52 +2,51 @@ let currentRole='';
 let isSignUp=false;
 
 const firebaseConfig = {
-    apiKey: "AIzaSyBzVO6E98LIr9R55KMgG5AVLn5a6VXmxco",
-    authDomain: "eatkaro-4baf4.firebaseapp.com",
-    databaseURL: "https://eatkaro-4baf4-default-rtdb.firebaseio.com",
-    projectId: "eatkaro-4baf4",
-    storageBucket: "eatkaro-4baf4.firebasestorage.app",
-    messagingSenderId: "522551115815",
-    appId: "1:522551115815:web:8662b5d04472b83e4a8e02",
-    measurementId: "G-148Q4PQNQ3"
+    apiKey: process.env.FIREBASE_API_KEY,
+    authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+    databaseURL: process.env.FIREBASE_DATABASE_URL,
+    projectId: process.env.FIREBASE_PROJECT_ID,
+    storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
+    appId: process.env.FIREBASE_APP_ID
 };
 
 firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-const database = firebase.database();
+const auth=firebase.auth();
+const database=firebase.database();
 
-const loginForm = document.getElementById('login-form');
-const signupForm = document.getElementById('signup-form');
-const toggleAuth = document.getElementById('toggle-auth');
-const toggleText = document.getElementById('toggle-text');
-const loadingSpinner = document.getElementById('loading-spinner');
-const errorModal = document.getElementById('error-modal');
-const errorMessage = document.getElementById('error-message');
-const forgotPasswordLink = document.querySelector('a[href="#"]');
+const loginForm=document.getElementById('login-form');
+const signupForm=document.getElementById('signup-form');
+const toggleAuth=document.getElementById('toggle-auth');
+const toggleText=document.getElementById('toggle-text');
+const loadingSpinner=document.getElementById('loading-spinner');
+const errorModal=document.getElementById('error-modal');
+const errorMessage=document.getElementById('error-message');
+const forgotPasswordLink=document.querySelector('a[href="#"]');
 
-function log(message, type = 'info', data = null) {
-    const timestamp = new Date().toISOString();
-    const logMessage = `[${timestamp}] [${type.toUpperCase()}] ${message}`;
+function log(message,type='info',data=null) {
+    const timestamp=new Date().toISOString();
+    const logMessage=`[${timestamp}] [${type.toUpperCase()}] ${message}`;
     
-    if (data) {
-        console.log(logMessage, data);
-    } else {
+    if(data){
+        console.log(logMessage,data);
+    }else{
         console.log(logMessage);
     }
 
-    const logs = JSON.parse(localStorage.getItem('auth_logs') || '[]');
+    const logs=JSON.parse(localStorage.getItem('auth_logs')||'[]');
     logs.push({
         timestamp,
         type,
         message,
-        data: data ? JSON.stringify(data) : null
+        data:data?JSON.stringify(data):null
     });
-    localStorage.setItem('auth_logs', JSON.stringify(logs.slice(-100))); 
+    localStorage.setItem('auth_logs',JSON.stringify(logs.slice(-100))); 
 }
 
 function showAuthForm(role) {
-    log(`Showing auth form for role: ${role}`);
-    currentRole = role;
+    log(`Showing auth form for role:${role}`);
+    currentRole=role;
     
   
     document.getElementById('role-selection').classList.add('hidden');
@@ -63,82 +62,82 @@ function showAuthForm(role) {
     document.getElementById('toggle-text').textContent = "Don't have an account?";
     document.getElementById('toggle-auth').textContent = "Sign up";
   
-    isSignUp = false;
+    isSignUp=false;
 }
 
 function toggleAuthMode() {
-    isSignUp = !isSignUp;
-    log(`Toggled auth mode to: ${isSignUp ? 'Sign Up' : 'Sign In'}`);
+    isSignUp=!isSignUp;
+    log(`Toggled auth mode to: ${isSignUp ?'Sign Up':'Sign In'}`);
     
-    const toggleText = document.getElementById('toggleAuthText');
-    const buttonText = document.getElementById('authButtonText');
+    const toggleText=document.getElementById('toggleAuthText');
+    const buttonText=document.getElementById('authButtonText');
     
-    if (isSignUp) {
-        toggleText.textContent = 'Already have an account? Sign in';
-        buttonText.textContent = 'Sign up';
+    if(isSignUp){
+        toggleText.textContent='Already have an account? Sign in';
+        buttonText.textContent='Sign up';
     } else {
-        toggleText.textContent = 'Need an account? Sign up';
-        buttonText.textContent = 'Sign in';
+        toggleText.textContent='Need an account? Sign up';
+        buttonText.textContent='Sign in';
     }
 }
 
-function showError(message) {
-    log(`Showing error: ${message}`, 'error');
+function showError(message){
+    log(`Showing error: ${message}`,'error');
     
-    let errorDiv = document.getElementById('error-message');
-    if (!errorDiv) {
+    let errorDiv=document.getElementById('error-message');
+    if(!errorDiv){
         log('Creating new error message element');
-        errorDiv = document.createElement('div');
-        errorDiv.id = 'error-message';
-        errorDiv.className = 'mt-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded';
+        errorDiv=document.createElement('div');
+        errorDiv.id='error-message';
+        errorDiv.className='mt-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded';
         document.querySelector('#authForms').insertBefore(errorDiv, document.querySelector('#authForms button'));
     }
-    errorDiv.textContent = message;
+    errorDiv.textContent=message;
     errorDiv.classList.remove('hidden');
 }
 
-function clearError() {
+function clearError(){
     log('Clearing error message');
-    const errorDiv = document.getElementById('error-message');
-    if (errorDiv) {
+    const errorDiv=document.getElementById('error-message');
+    if (errorDiv){
         errorDiv.classList.add('hidden');
     }
 }
 
 async function handleAuth() {
-    log('Starting authentication process', 'info', { isSignUp, currentRole });
+    log('Starting authentication process','info',{ isSignUp,currentRole });
     clearError();
     
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
+    const email=document.getElementById('email').value;
+    const password=document.getElementById('password').value;
 
-    if (!email || !password) {
-        log('Empty fields detected', 'error', { email: !!email, password: !!password });
+    if (!email||!password) {
+        log('Empty fields detected','error',{ email:!!email,password:!!password });
         showError('Please fill in all fields');
         return;
     }
 
     try {
-        if (isSignUp) {
-            log('Attempting to create new account', 'info', { email, role: currentRole });
+        if(isSignUp){
+            log('Attempting to create new account', 'info',{email,role:currentRole});
             
     
-            const userCredential = await auth.createUserWithEmailAndPassword(email, password);
-            const user = userCredential.user;
-            log('User account created successfully', 'success', { uid: user.uid });
+            const userCredential=await auth.createUserWithEmailAndPassword(email, password);
+            const user=userCredential.user;
+            log('User account created successfully', 'success',{uid:user.uid });
             
            
-            const userData = {
-                email: email,
-                role: currentRole,
+            const userData={
+                email:email,
+                role:currentRole,
                 createdAt: new Date().toISOString()
             };
-            log('Storing user data in database', 'info', userData);
+            log('Storing user data in database','info',userData);
             
             await database.ref(`${currentRole}s/${user.uid}`).set(userData);
             log('User data stored successfully', 'success');
 
-            const redirectUrl = currentRole === 'user' ? '/user-dashboard.html' : '/seller-dashboard.html';
+            const redirectUrl=currentRole==='user'?'/user-dashboard.html':'/seller-dashboard.html';
             log('Redirecting user', 'info', { redirectUrl });
             window.location.href = redirectUrl;
         } else {

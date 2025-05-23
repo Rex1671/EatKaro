@@ -43,8 +43,20 @@
 
     <script>
     
-        const stripe = Stripe('pk_test_51YOUR_PUBLISHABLE_KEY'); 
-        
+        let stripe;
+
+        async function initializeStripe() {
+            try {
+                const response = await fetch('/api/stripe-config');
+                const config = await response.json();
+                stripe = Stripe(config.publishableKey);
+            } catch (error) {
+                console.error('Error initializing Stripe:', error);
+            }
+        }
+
+        initializeStripe();
+
         async function checkPaymentStatus() {
             const urlParams = new URLSearchParams(window.location.search);
             const method = urlParams.get('method');

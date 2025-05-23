@@ -46,6 +46,17 @@ document.addEventListener('DOMContentLoaded', function() {
 let stripe;
 let elements;
 
+async function initializeStripe() {
+    try {
+        const response = await fetch('/api/stripe-config');
+        const config = await response.json();
+        stripe = Stripe(config.publishableKey);
+    } catch (error) {
+        console.error('Error initializing Stripe:', error);
+    }
+}
+
+initializeStripe();
 
 function log(message, type = 'info', data = null) {
     const timestamp = new Date().toISOString();
@@ -151,11 +162,11 @@ async function loadUserProfile() {
         const snapshot = await database.ref(`users/${currentUser.uid}`).once('value');
         userProfile = snapshot.val();
         
-        if (userProfile) {
+        if (userProfile && userProfile.fullName && userProfile.phone && userProfile.address) {
             log('Profile loaded successfully', 'success');
             updateProfileUI();
         } else {
-            log('No profile found, showing profile modal', 'info');
+            log('No profile found or incomplete profile, showing profile modal', 'info');
             showProfile();
         }
     } catch (error) {
@@ -181,6 +192,13 @@ function showProfile() {
         document.getElementById('address').value = userProfile.address || '';
         document.getElementById('profile-photo-preview').src = userProfile.photoURL || 'images/default-avatar.png';
         profilePhotoUrl = userProfile.photoURL || '';
+    } else {
+        // Clear form fields if no profile exists
+        document.getElementById('full-name').value = '';
+        document.getElementById('phone').value = '';
+        document.getElementById('address').value = '';
+        document.getElementById('profile-photo-preview').src = 'images/default-avatar.png';
+        profilePhotoUrl = '';
     }
     document.getElementById('profile-modal').classList.remove('hidden');
 }

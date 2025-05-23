@@ -1,21 +1,17 @@
 const firebaseConfig = {
-    apiKey: "AIzaSyBzVO6E98LIr9R55KMgG5AVLn5a6VXmxco",
-    authDomain: "eatkaro-4baf4.firebaseapp.com",
-    databaseURL: "https://eatkaro-4baf4-default-rtdb.firebaseio.com",
-    projectId: "eatkaro-4baf4",
-    storageBucket: "eatkaro-4baf4.firebasestorage.app",
-    messagingSenderId: "522551115815",
-    appId: "1:522551115815:web:8662b5d04472b83e4a8e02",
-    measurementId: "G-148Q4PQNQ3"
+    apiKey: process.env.FIREBASE_API_KEY,
+    authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+    databaseURL: process.env.FIREBASE_DATABASE_URL,
+    projectId: process.env.FIREBASE_PROJECT_ID,
+    storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
+    appId: process.env.FIREBASE_APP_ID
 };
 
-
 firebase.initializeApp(firebaseConfig);
-
 
 const auth = firebase.auth();
 const database = firebase.database();
 const storage = firebase.storage();
-
 
 export { auth, database, storage }; 
